@@ -1,1 +1,0 @@
-Video by olia danilevich from Pexels: https://www.pexels.com/video/man-doing-push-ups-4964650/
