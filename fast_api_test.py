@@ -20,6 +20,7 @@ async def read_item(request: Request, id: str):
 
 @app.get("/")
 async def index(request: Request):
+
     return templates.TemplateResponse(
         "index.html", context={"request": request, "result": "HELLO"}
     )
