@@ -17,6 +17,5 @@
       "src": "/.*",
       "dest": "fast_api_test.py"
     }
-  ],
-  "excludeFiles": "*.mp4"
+  ]
 }
