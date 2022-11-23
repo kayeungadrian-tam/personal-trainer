@@ -1,5 +1,3 @@
-import uvicorn
-
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -25,4 +23,3 @@ async def index(request: Request):
     return templates.TemplateResponse(
         "index.html", context={"request": request, "result": "HELLO"}
     )
-    # return {"message": "Hello!"}
