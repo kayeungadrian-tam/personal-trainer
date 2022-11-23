@@ -18,7 +18,5 @@
       "dest": "fast_api_test.py"
     }
   ],
-  "functions": {
-    "excludeFiles": "*.mp4"
-  }
+  "excludeFiles": "*.mp4"
 }
