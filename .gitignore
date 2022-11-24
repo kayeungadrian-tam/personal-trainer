@@ -130,3 +130,7 @@ dmypy.json
 
 data/*
 node_modules/*
+
+*.env
+.firebase
+firebase.ts

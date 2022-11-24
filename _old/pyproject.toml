@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "squat-counter"
+version = "0.1.0"
+description = ""
+authors = ["adrian <tamkayeung.adrian@gmail.com>"]
+readme = "README.md"
+packages = [{include = "squat_counter"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+mediapipe = "^0.8.11"
+numpy = "^1.23.4"
+opencv-python = "^4.6.0.66"
+pyttsx3 = "^2.90"
+seaborn = "^0.12.1"
+Jinja2 = "^3.1.2"
+fastapi = "^0.87.0"
+uvicorn = "^0.20.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

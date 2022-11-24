@@ -31,6 +31,8 @@ import { Holistic, Results, POSE_CONNECTIONS, FACEMESH_TESSELATION, HAND_CONNECT
 import { ref, onBeforeUnmount, watch, onMounted, defineComponent } from "vue";
 import type { InputImage } from "@mediapipe/holistic";
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
+
+
 const UNSELECTED = "empty";
 
 export default defineComponent({
