@@ -42,6 +42,10 @@ import { ref, watch } from "vue";
 const captureStream = ref<MediaStream | undefined>();
 const isOpen = ref(false);
 const webVideo = ref<HTMLVideoElement>()
+const outVideo = ref<HTMLCanvasElement>()
+const ctx = ref()
+
+const interval = ref();
 
 const stopCamera = () => {
 
@@ -51,6 +55,7 @@ const stopCamera = () => {
     tracks?.forEach((track) => {
         track.stop()
     })
+    clearInterval(interval.value)
 }
 
 
@@ -66,6 +71,10 @@ const swtichCamera = () => {
 }
 
 const startCamera = () => {
+    interval.value = setInterval(async () => {
+        await console.log('calibrations')
+    }, 80)
+
     const constraints = {
         audio: true,
         video: true,
@@ -91,7 +100,11 @@ const testFrame = () => {
 
 onMounted(() => {
     // startCamera();
+    ctx.value = outVideo?.value?.getContext('2d')
 })
+
+
+
 
 watch(
     () => isOpen.value,
