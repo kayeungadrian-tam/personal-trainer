@@ -22,13 +22,14 @@
         width=1280
         height=720></canvas>
     </div>
+    <button @click="stopCamera">Stop</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Camera } from '@mediapipe/camera_utils';
 import { Holistic, Results, POSE_CONNECTIONS, FACEMESH_TESSELATION, HAND_CONNECTIONS, NormalizedLandmark } from '@mediapipe/holistic';
-import { ref, onBeforeUnmount, watch, onMounted, defineComponent } from "vue";
+import { ref, onBeforeUnmount, onMounted, defineComponent } from "vue";
 import type { InputImage } from "@mediapipe/holistic";
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
 
@@ -40,6 +41,7 @@ export default defineComponent({
   props: {
     msg: String,
   },
+
 });
 </script>
 
@@ -48,6 +50,12 @@ const videoDivice = ref(localStorage.getItem('videoDivice') || '')
 const counter = ref(0);
 const angle = ref(0);
 const stage = ref("hello");
+
+const webVideo = ref<HTMLVideoElement>()
+const outVideo = ref<HTMLCanvasElement>()
+const camera = ref<Camera>()
+const ctx = ref()
+
 
 const finaAngle = (p0: NormalizedLandmark, p1: NormalizedLandmark, p2: NormalizedLandmark) => {
   const a = Math.pow(p1.x - p0.x, 2) + Math.pow(p1.y - p0.y, 2);
@@ -70,12 +78,7 @@ const countPushUps = (angle: number) => {
 }
 
 
-const webVideo = ref<HTMLVideoElement>()
-const outVideo = ref<HTMLCanvasElement>()
 
-
-
-const camera = ref<Camera>()
 
 
 const startCamera = () => {
@@ -99,6 +102,7 @@ const startCamera = () => {
   if (webVideo.value) {
     camera.value = new Camera(webVideo.value, {
       onFrame: async () => {
+        console.log("onFrame")
         await holistic.send({ image: webVideo.value as InputImage });
       },
       width: 1280,
@@ -109,16 +113,13 @@ const startCamera = () => {
 }
 
 
-const ctx = ref()
 
 const onResults = (results: Results) => {
   ctx.value.save()
   ctx.value.clearRect(0, 0, results.image.width, results.image.height)
   ctx.value.drawImage(results.image, 0, 0, results.image.width, results.image.height)
-  // cameraのサイズをストアに保存する
+
   detectHolistic(results)
-
-
   ctx.value.restore()
 }
 
@@ -176,19 +177,19 @@ onMounted(() => {
   ctx.value = outVideo?.value?.getContext('2d')
 })
 
-watch(
-  () => videoDivice.value,
-  () => {
-    localStorage.setItem('videoDivice', videoDivice.value || '')
-    if (videoDivice.value !== UNSELECTED) {
-      startCamera()
-    }
-    else {
-      stopCamera();
-      console.log("No camera selected")
-    }
-  }
-)
+// watch(
+//   () => videoDivice.value,
+//   () => {
+//     localStorage.setItem('videoDivice', videoDivice.value || '')
+//     if (videoDivice.value !== UNSELECTED) {
+//       startCamera()
+//     }
+//     else {
+//       stopCamera();
+//       console.log("No camera selected")
+//     }
+//   }
+// )
 
 onBeforeUnmount(async () => {
   stopCamera()
