@@ -77,9 +77,7 @@ import { useFirestore } from 'vuefire'
 import { useCollection } from 'vuefire'
 import { collection } from 'firebase/firestore'
 
-import Dialog from 'primevue/dialog';
 import Card from 'primevue/card';
-import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Divider from 'primevue/divider';
 import Password from 'primevue/password';

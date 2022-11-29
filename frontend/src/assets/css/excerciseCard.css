@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+.excercise-card {
+  /* background-color: red; */
+  width: 300px;
+}
+
+.excercise-card img {
+  width: 250px;
+  height: 200px;
+}
+
+.excercise-card .p-card {
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-shadow: 13px 14px 7px -7px rgba(196, 161, 136, 0.44);
+  -webkit-box-shadow: 13px 14px 7px -7px rgba(196, 161, 136, 0.44);
+  -moz-box-shadow: 13px 14px 7px -7px rgba(196, 161, 136, 0.44);
+}
+
+.excercise-card .p-card-footer {
+  display: inline-flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.excercise-card img:hover,
+.excercise-card .p-card:hover {
+  opacity: 0.5;
+}

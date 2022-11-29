@@ -1,49 +1,45 @@
 <template>
 
   <div class="home">
-    <p-Button icon="pi pi-align-justify"
-      @click="visibleLeft = !visibleLeft" />
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/webcam">Webcam</router-link>
+    <div class="title">
+      <h1>
+        Welcome back <span class="user-name">{{ store.state.user.displayName }}</span>
+      </h1>
+    </div>
 
-    <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
-    <!-- <TestFirebaseVue /> -->
+    <!-- All EXs -->
+    <div class="excercise-board">
+      <ExcerciseCard msg="Push up"
+        :progress=25 />
+
+      <ExcerciseCard msg="Push sup"
+        :progress=25 />
+
+      <ExcerciseCard msg="Push up"
+        :progress=25 />
+    </div>
+
+    <TestFirebaseVue />
   </div>
 
-  <Sidebar v-model:visible="visibleLeft">
-    Content
-  </Sidebar>
 
-  {{ visibleLeft }}
 </template>
 
 
 
 <style>
-.home {
-  height: 100vh;
-  /* max-width: 100%; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-left: auto;
-  margin-right: auto;
-}
+@import "@/assets/css/home.css";
 </style>
-<scripts setup lang="ts">
 
-
-
-
-</scripts>
 
 <script setup lang="ts">
 import Sidebar from 'primevue/sidebar';
-import Menubar from 'primevue/menubar';
-import InputText from 'primevue/inputtext';
+import { useStore } from 'vuex'
+import ExcerciseCard from '@/components/ExcerciseCard.vue'
+
 const visibleLeft = ref(false)
+
+const store = useStore()
 
 
 

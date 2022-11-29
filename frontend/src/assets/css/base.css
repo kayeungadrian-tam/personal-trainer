@@ -52,3 +52,23 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.title {
+  color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  text-shadow: 1px 1px 10px #4b2c14;
+}
+
+.title h1::after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  height: 2px;
+  background-color: #4b2c14;
+  margin-top: 5px;
+}
