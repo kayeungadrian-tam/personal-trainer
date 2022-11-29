@@ -41,9 +41,7 @@
 </style>
 
 <script lang="ts">
-export default defineComponent({
 
-});
 </script>
 
 <script setup lang="ts">
