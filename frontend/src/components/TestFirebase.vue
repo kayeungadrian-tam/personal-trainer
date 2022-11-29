@@ -9,7 +9,7 @@
         </ul>
     </div>
 
-    <form @submit.prevent="signup"
+    <form @submit.prevent="handleSubmit"
         class="mt-4 flex flex-col">
         <h3 class="text-xl underline">Login</h3>
 
@@ -34,6 +34,13 @@
 
     </form>
 
+    {{ store.state.user.displayName }}
+
+    <button @click="LoginWithGoolge">
+        Goolge
+
+    </button>
+
 </template>
 
 <script setup lang="ts">
@@ -57,6 +64,8 @@ const password = ref('')
 const error = ref(null)
 
 const store = useStore()
+
+
 const router = useRouter()
 
 
@@ -79,6 +88,21 @@ const signup = async () => {
         await store.dispatch('signup', {
             email: email.value,
             password: password.value
+        })
+        router.push('/')
+    }
+    catch (err) {
+        // error.value = err.message
+        console.error(err)
+    }
+}
+// goolgeLogin
+const LoginWithGoolge = async () => {
+    // console.log("goolgeLogin")
+    try {
+        await store.dispatch('goolgeLogin', {
+            // email: email.value,
+            // password: password.value
         })
         router.push('/')
     }

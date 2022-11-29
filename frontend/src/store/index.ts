@@ -3,7 +3,9 @@ import { auth } from '../firebase/config';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    GoogleAuthProvider,
+    signInWithPopup
 } from 'firebase/auth'
 
 
@@ -45,6 +47,15 @@ const store = createStore({
             await signOut(auth)
 
             context.commit('setUser', null)
+        },
+
+        async goolgeLogin(context) {
+            const provider = new GoogleAuthProvider();
+            const response = await signInWithPopup(auth, provider);
+            if (response) {
+                // console.table(response)
+                context.commit('setUser', response.user)
+            }
         }
     }
 })
