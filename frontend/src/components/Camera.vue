@@ -1,6 +1,6 @@
 <template>
 
-    <button @click="swtichCamera">Swtich</button>
+    <p-Button @click="swtichCamera">Swtich</p-Button>
     <h1>Open? {{ isOpen }}</h1>
     <div class="root">
         <video v-if="isOpen"

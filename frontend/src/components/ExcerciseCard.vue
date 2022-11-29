@@ -4,8 +4,11 @@
         <Card>
 
             <template #header>
-                <img src="../assets/excercise/push_up.gif"
+                <img v-if="(msg == 'Push up')"
+                    src="../assets/excercise/push_up.gif"
                     alt="Image Text" />
+                <img v-else
+                    src="../assets/excercise/jump_squat.gif">
             </template>
             <template #title>
                 {{ msg }}<br>
@@ -45,6 +48,7 @@
 </script>
 
 <script setup lang="ts">
+
 import Card from 'primevue/card';
 import Tag from 'primevue/tag';
 import Image from 'primevue/image';

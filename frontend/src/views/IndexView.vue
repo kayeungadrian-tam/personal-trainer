@@ -26,8 +26,12 @@
 @import "@/assets/css/index.css";
 </style>
 
+
+
 <script lang="ts">
-import { defineComponent } from 'vue';
+document.title = 'Welcom | Personal Trainer Beta';
+
+import { onMounted, defineComponent } from 'vue';
 import LoginCard from '@/components/LoginCard.vue';
 
 export default defineComponent({

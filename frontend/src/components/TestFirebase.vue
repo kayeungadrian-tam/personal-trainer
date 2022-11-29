@@ -9,37 +9,6 @@
         </ul>
     </div>
 
-    <form @submit.prevent="login"
-        class="mt-4 flex flex-col">
-        <h3 class="text-xl underline">Login</h3>
-
-        <label for="email">Email:</label>
-        <input class="border w-4/12"
-            type="email"
-            name="email"
-            v-model="email"
-            required>
-
-        <label for="email">Password:</label>
-        <input class="border w-4/12"
-            type="password"
-            name="password"
-            v-model="password"
-            required>
-
-        <button class="w-max mt-4 px-4 py-2 text-center rounded-full bg-blue-500 text-white">Login</button>
-        <div v-if="error">{{ error }}</div>
-
-
-
-    </form>
-
-    {{ store }}
-
-    <button @click="LoginWithGoolge">
-        Goolge
-
-    </button>
 
 </template>
 

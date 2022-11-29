@@ -12,7 +12,7 @@
       <ExcerciseCard msg="Push up"
         :progress=25 />
 
-      <ExcerciseCard msg="Push sup"
+      <ExcerciseCard msg="Jump Squat"
         :progress=25 />
 
       <ExcerciseCard msg="Push up"
@@ -33,6 +33,7 @@
 
 
 <script setup lang="ts">
+
 import Sidebar from 'primevue/sidebar';
 import { useStore } from 'vuex'
 import ExcerciseCard from '@/components/ExcerciseCard.vue'
@@ -186,6 +187,7 @@ const items = ref(
 
 
 <script lang="ts">
+
 import { defineComponent, ref } from 'vue';
 import TestFirebaseVue from '@/components/TestFirebase.vue';
 

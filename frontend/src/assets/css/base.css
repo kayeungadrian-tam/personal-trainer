@@ -54,7 +54,7 @@ nav a.router-link-exact-active {
 }
 
 .title {
-  color: red;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -69,6 +69,6 @@ nav a.router-link-exact-active {
   margin: 0 auto;
   width: 50%;
   height: 2px;
-  background-color: #4b2c14;
+  background-color: whitesmoke;
   margin-top: 5px;
 }
