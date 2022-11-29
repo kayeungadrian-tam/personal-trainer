@@ -1,66 +1,31 @@
 <template>
-  <router-view />
+  <NavBar v-if="store.state.user" />
+
+  <body>
+    <router-view />
+  </body>
 </template>
 
+<script setup lang="ts">
+import NavBar from "@/components/NavBar.vue";
+import { useStore } from 'vuex'
+import { onMounted } from "vue";
+
+const store = useStore()
+
+
+onMounted(async () => {
+  store.state.user = null;
+})
+
+
+
+</script>
 
 <style>
 @import "primevue/resources/themes/saga-blue/theme.css";
 @import "primevue/resources/primevue.min.css";
 @import "primeicons/primeicons.css";
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  background-image: linear-gradient(to left bottom,
-      #6bbfd1,
-      #67bcd8,
-      #67b8de,
-      #6cb4e3,
-      #75afe6,
-      #73a9ec,
-      #76a3f0,
-      #7e9bf3,
-      #8090fa,
-      #8983fe,
-      #9773fe,
-      #a95ffb);
-
-}
-
-
-*,
-::before,
-::after {
-
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-ul,
-ol {
-  list-style: none;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+@import "@/assets/css/base.css";
 </style>

@@ -9,6 +9,11 @@ const routes: Array<RouteRecordRaw> = [
     component: IndexView
   },
   {
+    path: '/logout',
+    name: 'logout',
+    component: IndexView
+  },
+  {
     path: '/home',
     name: 'home',
     component: HomeView

@@ -4,6 +4,7 @@ import router from './router'
 import store from './store/index'
 import PrimeVue from 'primevue/config';
 import Dialog from 'primevue/dialog';
+import Button from 'primevue/button';
 
 const app = createApp(App)
 app
@@ -11,6 +12,6 @@ app
     .use(store)
     .use(PrimeVue)
 
-// app.component('Dialog', Dialog);
+app.component('p-Button', Button);
 
 app.mount('#app')

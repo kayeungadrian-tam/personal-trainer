@@ -32,25 +32,26 @@
 
 
 
-                <Button @click="login"
+                <p-Button @click="login"
+                    class="p-button-warning"
                     label="Login" />
 
 
                 <Divider align="center">
-                    <p>or</p>
+                    <b>or</b>
                 </Divider>
 
                 <div class="social-login">
                     <div class="social-icon">
-                        <Button @click="LoginWithGoolge"
-                            class="p-button-info"
+                        <p-Button @click="LoginWithGoolge"
+                            class="p-button-warning"
                             icon="pi pi-google"
                             label="Google" />
                     </div>
                     <div class="social-icon">
-                        <Button icon="pi pi-github"
+                        <p-Button icon="pi pi-github"
                             label="Github"
-                            class="p-button-info"
+                            class="p-button-warning"
                             style="margin-left: .5em" />
                     </div>
                 </div>
@@ -99,6 +100,7 @@ const router = useRouter()
 
 
 const login = () => {
+    store.state.user = "empty";
     router.push('/home')
 
 }
