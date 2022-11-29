@@ -72,7 +72,8 @@ const items = ref(
         {
             label: 'Vue Website',
             icon: 'pi pi-external-link',
-            url: 'https://vuejs.org/'
+            to: "/webcam"
+            // url: 'https://vuejs.org/'
         },
         {
             label: 'Router',
