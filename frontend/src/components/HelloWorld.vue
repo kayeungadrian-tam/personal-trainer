@@ -19,14 +19,20 @@
         hidden></video>
       <canvas ref="outVideo"
         class="outVideo"
-        width=1280
-        height=720></canvas>
+        width=640
+        height=480></canvas>
     </div>
     <button @click="stopCamera">Stop</button>
+  </div>
+  <div class='square-box'>
+    Box below
+    <div class="landmark-grid-container">
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+
 import { Camera } from '@mediapipe/camera_utils';
 import { Holistic, Results, POSE_CONNECTIONS, FACEMESH_TESSELATION, HAND_CONNECTIONS, NormalizedLandmark } from '@mediapipe/holistic';
 import { ref, onBeforeUnmount, onMounted, defineComponent } from "vue";
@@ -50,6 +56,12 @@ const videoDivice = ref(localStorage.getItem('videoDivice') || '')
 const counter = ref(0);
 const angle = ref(0);
 const stage = ref("hello");
+
+const landmarkContainer =
+  document.getElementsByClassName('landmark-grid-container')[0] as HTMLDivElement;
+
+const grid = ref()
+
 
 const webVideo = ref<HTMLVideoElement>()
 const outVideo = ref<HTMLCanvasElement>()
@@ -79,24 +91,24 @@ const countPushUps = (angle: number) => {
 
 
 
+const holistic = new Holistic({
+  locateFile: (file) => {
+    return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
+  }
+});
+holistic.setOptions({
+  modelComplexity: 1,
+  smoothLandmarks: true,
+  enableSegmentation: true,
+  smoothSegmentation: true,
+  refineFaceLandmarks: true,
+  minDetectionConfidence: 0.5,
+  minTrackingConfidence: 0.5
+});
+
 
 
 const startCamera = () => {
-  const holistic = new Holistic({
-    locateFile: (file) => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
-    }
-  });
-  holistic.setOptions({
-    modelComplexity: 1,
-    smoothLandmarks: true,
-    enableSegmentation: true,
-    smoothSegmentation: true,
-    refineFaceLandmarks: true,
-    minDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.5
-  });
-
   holistic.onResults(onResults)
 
   if (webVideo.value) {
@@ -105,8 +117,8 @@ const startCamera = () => {
         console.log("onFrame")
         await holistic.send({ image: webVideo.value as InputImage });
       },
-      width: 1280,
-      height: 720
+      width: 640,
+      height: 480
     });
     camera.value.start();
   }
@@ -116,8 +128,8 @@ const startCamera = () => {
 
 const onResults = (results: Results) => {
   ctx.value.save()
-  ctx.value.clearRect(0, 0, results.image.width, results.image.height)
-  ctx.value.drawImage(results.image, 0, 0, results.image.width, results.image.height)
+  ctx.value.clearRect(0, 0, 640, 480)
+  ctx.value.drawImage(results.image, 0, 0, 640, 480)
 
   detectHolistic(results)
   ctx.value.restore()
@@ -155,6 +167,7 @@ const detectHolistic = (results: Results) => {
   else {
     console.log("Not detected.")
   }
+
 }
 
 const stopCamera = () => {

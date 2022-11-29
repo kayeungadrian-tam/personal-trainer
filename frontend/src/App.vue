@@ -1,22 +1,55 @@
 <template>
-
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/webcam">Webcam</router-link>
-  </nav>
   <router-view />
 </template>
 
 
 <style>
+@import "primevue/resources/themes/saga-blue/theme.css";
+@import "primevue/resources/primevue.min.css";
+@import "primeicons/primeicons.css";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-image: linear-gradient(to left bottom,
+      #6bbfd1,
+      #67bcd8,
+      #67b8de,
+      #6cb4e3,
+      #75afe6,
+      #73a9ec,
+      #76a3f0,
+      #7e9bf3,
+      #8090fa,
+      #8983fe,
+      #9773fe,
+      #a95ffb);
+
 }
+
+
+*,
+::before,
+::after {
+
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 
 nav {
   padding: 30px;

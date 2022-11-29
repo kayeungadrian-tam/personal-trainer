@@ -9,5 +9,6 @@ module.exports = defineConfig({
         target: "https://localhost:8080"
       }
     }
-  }
+  },
+
 })

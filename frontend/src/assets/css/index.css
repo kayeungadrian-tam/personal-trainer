@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+.indexPage {
+}
+
+.indexPage .index-inner {
+  height: 100vh;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.indexPage Button {
+  width: 80%;
+}
+
+.indexPage .index-inner .login-form {
+  display: flex;
+  justify-content: space-evenly;
+  /* align-items: flex-start; */
+}
+
+.indexPage .login-logo {
+  background-color: blue;
+}
+
+.indexPage img {
+  width: 360px;
+  /* height: 200px; */
+}
+
+.indexPage .index-inner .login-des {
+}
+
+.indexPage .index-inner .login-card {
+  /* margin: 10px; */
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.p-card {
+  background: rgba(144, 19, 254, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.indexPage .index-inner .login-card .input {
+  text-align: center;
+  /* margin-top: 5px; */
+  width: 80%;
+  margin: 10px auto;
+}
+
+.social-login {
+  display: flex;
+  justify-content: space-around;
+}
+
+.social-icon {
+  width: 340px;
+}
+
+.login-card-footer {
+  color: black;
+  font-style: italic;
+}
+
+.login-card-footer .register {
+  cursor: pointer;
+  color: blue;
+  font-style: italic;
+}
+
+.login-card-footer .register::after {
+  content: "";
+}
+
+.login-card-footer .register:hover {
+  cursor: pointer;
+  color: lightblue;
+}
