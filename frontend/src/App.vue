@@ -1,5 +1,4 @@
 <template>
-  <NavBar v-if="store.state.user" />
 
   <body>
     <router-view />
@@ -7,9 +6,10 @@
 </template>
 
 <script setup lang="ts">
-import NavBar from "@/components/NavBar.vue";
+// import NavBar from "@/components/NavBar.vue";
 import { useStore } from 'vuex'
 import { onMounted } from "vue";
+
 
 const store = useStore()
 

@@ -1,5 +1,33 @@
 @charset "utf-8";
 
+@media screen and (max-width: 1000px) {
+  .indexPage {
+  }
+
+  .indexPage .index-inner {
+    /* background-color: red; */
+    /* height: 100vh; */
+    /* max-width: 600px; */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .indexPage .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    max-width: 1000px;
+    /* width: 100%; */
+    justify-content: space-evenly;
+  }
+
+  .indexPage .login-des {
+    background-color: red;
+    max-width: 720px;
+  }
+}
+
 .indexPage {
 }
 

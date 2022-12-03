@@ -1,4 +1,9 @@
 <template>
+    <div class="toggle-menu">
+        <i class="pi pi-align-justify"
+            @click="visibleleft = true"
+            style="font-size: 1.5rem; font-weight: 900;"></i>
+    </div>
     <nav>
         <router-link to="/home">
             <img class="site-logo"
@@ -7,25 +12,31 @@
                 width=100
                 height=50 />
         </router-link>
-        <div v-if="true"
-            class="toggle-bar">
-            <div @click="_toggle"><i class="pi pi-align-justify"></i></div>
-            <!-- <p-Button @click="logout"><i class="pi pi-power-off"></i></p-Button> -->
-        </div>
+
         <Menu v-if="!hideMenu"
             ref="menu"
             :model="items"
             :popup="false" />
 
+        <p-Button class="p-button-lg p-button-danger p-button-rounded ">
+            <i class="pi pi-fw pi-power-off log-out-button"></i>
+
+            Log out
+        </p-Button>
+
     </nav>
 
-</template>
-<scripts setup lang="ts">
 
-</scripts>
+
+    <Sidebar v-model:visible="visibleleft">
+        Content
+    </Sidebar>
+
+</template>
+
   
 <script setup lang="ts">
-
+import Sidebar from 'primevue/sidebar';
 import Menu from 'primevue/menu';
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -35,6 +46,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const store = useStore();
 const hideMenu = ref(false)
+
+const visibleleft = ref(false)
+
 
 const logout = async () => {
     try {

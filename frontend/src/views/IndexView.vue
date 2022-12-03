@@ -5,7 +5,7 @@
             <div class="login-form">
                 <div class="login-des">
                     <h1>Welcome to Personal-Trainer-Beta</h1>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt illo ab nobis quis facere
+                    <p>Lorem ipsum dolor sist, amet consectetur adipisicing elit. Incidunt illo ab nobis quis facere
                         nostrum
                         quos mollitia earum aut temporibus fugiat ullam necessitatibus magni, cumque unde illum laborum
                         rem?

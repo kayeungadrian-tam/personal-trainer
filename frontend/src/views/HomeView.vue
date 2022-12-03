@@ -1,5 +1,5 @@
 <template>
-
+  <NavBar />
   <div class="home">
     <div class="title">
       <h1>
@@ -37,6 +37,7 @@
 import Sidebar from 'primevue/sidebar';
 import { useStore } from 'vuex'
 import ExcerciseCard from '@/components/ExcerciseCard.vue'
+import NavBar from "@/components/NavBar.vue";
 
 const visibleLeft = ref(false)
 
