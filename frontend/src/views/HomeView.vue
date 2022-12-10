@@ -8,17 +8,18 @@
     </div>
 
     <!-- All EXs -->
-    <div class="excercise-board">
-      <ExcerciseCard msg="Push up"
-        :progress=25 />
+    <div class="main">
+      <h2>All Excercises</h2>
+      <div class="excercise-board">
+        <ExcerciseCard msg="Push Up"
+          :progress=25 />
 
-      <ExcerciseCard msg="Jump Squat"
-        :progress=25 />
+        <ExcerciseCard msg="Jump Squat"
+          :progress=25 />
 
-      <ExcerciseCard msg="Push up"
-        :progress=25 />
+
+      </div>
     </div>
-
     <TestFirebaseVue />
   </div>
 

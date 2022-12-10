@@ -43,8 +43,6 @@ export default defineComponent({
 import { ref, watch } from "vue";
 import { Holistic, Results, POSE_CONNECTIONS, FACEMESH_TESSELATION, HAND_CONNECTIONS, NormalizedLandmark } from '@mediapipe/holistic';
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
-import type { InputImage } from "@mediapipe/holistic";
-import * as tf from '@tensorflow/tfjs'
 import * as posenet from '@tensorflow-models/posenet';
 const captureStream = ref<MediaStream | undefined>();
 const isOpen = ref(false);
@@ -72,8 +70,6 @@ const onResults = (results: Results) => {
 
 const detectHolistic = (results: Results) => {
     if (results.poseLandmarks) {
-        // console.log(results.poseLandmarks[11].x);
-        // const x = results.poseLandmarks[386].x;
         const p0 = results.poseLandmarks[23];
         const p1 = results.poseLandmarks[11];
         const p2 = results.poseLandmarks[13];

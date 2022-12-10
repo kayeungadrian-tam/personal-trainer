@@ -18,7 +18,8 @@
             :model="items"
             :popup="false" />
 
-        <p-Button class="p-button-lg p-button-danger p-button-rounded ">
+        <p-Button @click="logout"
+            class="p-button-lg p-button-danger p-button-rounded ">
             <i class="pi pi-fw pi-power-off log-out-button"></i>
 
             Log out
@@ -101,12 +102,7 @@ const items = ref(
             url: "https://adrian-tam.notion.site/Personal-Trainer-fa1afe46158548da8a8239762d3d7669",
             target: "blank"
         },
-        {
-            label: 'Sign Out',
-            icon: 'pi pi-fw pi-power-off',
-            // to: '/logout',
-            command: () => { logout(); }
-        },
+
         // {
         //     label: 'Options',
         //     items: [{ label: 'New', icon: 'pi pi-fw pi-plus', command: () => { console.log("TESTES") } },

@@ -3,14 +3,14 @@
     <h1>{{ angle }}</h1>
     <h1>{{ counter }}</h1>
     <h1>{{ stage }}</h1>
-    <select v-model="videoDivice"
-      :items="devicesList">
-      <option v-for="device in devicesList"
-        :key=device>
-        {{ device }}
-      </option>
+    <!-- <select v-model="videoDivice" -->
+    <!-- :items="devicesList"> -->
+    <!-- <option v-for="device in devicesList" -->
+    <!-- :key=device> -->
+    <!-- {{ device }} -->
+    <!-- </option> -->
 
-    </select>
+    <!-- </select>e -->
 
     {{ videoDivice }}
     <div class="webcam">
@@ -22,7 +22,7 @@
         width=640
         height=480></canvas>
     </div>
-    <button @click="stopCamera">Stop</button>
+    <p-Button @click="startCamera">Stop</p-Button>
   </div>
   <div class='square-box'>
     Box below
@@ -56,11 +56,6 @@ const videoDivice = ref(localStorage.getItem('videoDivice') || '')
 const counter = ref(0);
 const angle = ref(0);
 const stage = ref("hello");
-
-const landmarkContainer =
-  document.getElementsByClassName('landmark-grid-container')[0] as HTMLDivElement;
-
-const grid = ref()
 
 
 const webVideo = ref<HTMLVideoElement>()
@@ -186,47 +181,35 @@ const stopCamera = () => {
 
 
 onMounted(() => {
-  startCamera();
+  // startCamera();
   ctx.value = outVideo?.value?.getContext('2d')
 })
 
-// watch(
-//   () => videoDivice.value,
-//   () => {
-//     localStorage.setItem('videoDivice', videoDivice.value || '')
-//     if (videoDivice.value !== UNSELECTED) {
-//       startCamera()
-//     }
-//     else {
-//       stopCamera();
-//       console.log("No camera selected")
-//     }
-//   }
-// )
+
 
 onBeforeUnmount(async () => {
-  stopCamera()
+  // stopCamera()
 })
 
-const devicesList = ref<string[]>([UNSELECTED]); // videoリスト
-navigator.mediaDevices
-  .getUserMedia({ audio: false, video: true })
-  .then((stream) => {
-    navigator.mediaDevices
-      .enumerateDevices()
-      .then((devices) => {
-        devices.forEach((device) => {
-          if (device.kind === "videoinput")
-            devicesList.value.push(device.label);
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+// const devicesList = ref<string[]>([UNSELECTED]); // videoリスト
+// navigator.mediaDevices
+//   .getUserMedia({ audio: false, video: true })
+//   .then((stream) => {
+//     navigator.mediaDevices
+//       .enumerateDevices()
+//       .then((devices) => {
+//         devices.forEach((device) => {
+//           if (device.kind === "videoinput")
+//             devicesList.value.push(device.label);
+//         });
+//       })
+//       .catch((err) => {
+//         console.error(err);
+//       });
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

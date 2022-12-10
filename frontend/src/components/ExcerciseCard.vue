@@ -4,16 +4,22 @@
         <Card>
 
             <template #header>
-                <img v-if="(msg == 'Push up')"
+                <img v-if="(msg == 'Push Up')"
                     src="../assets/excercise/push_up.gif"
                     alt="Image Text" />
-                <img v-else
+
+                <img v-if="(msg == 'Jump Squat')"
                     src="../assets/excercise/jump_squat.gif">
+
             </template>
             <template #title>
-                {{ msg }}<br>
+                {{ msg }}
                 <Tag value="New"></Tag>
             </template>
+            <template #subtitle>
+                10 x 3
+            </template>
+
             <template #content>
 
             </template>
@@ -27,10 +33,10 @@
                     :min="0"
                     :max="100" />
 
-                <p-Button icon="pi pi-chevron-right"
+                <!-- <p-Button icon="pi pi-chevron-right"
                     label="GO!"
                     class="p-button-success"
-                    style="margin-left: .5em" />
+                    style="margin-left: .5em" /> -->
             </template>
         </Card>
 
