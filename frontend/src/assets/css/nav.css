@@ -9,7 +9,7 @@
   }
 
   nav {
-    color: red;
+    /* color: red; */
     position: fixed;
     margin: 0;
     width: 200px;
@@ -83,7 +83,7 @@
 
 nav .p-menu {
   /* margin: 0; */
-  /* top: 150px; */
+  top: 30px;
   position: relative;
   left: 0;
   height: 100%;
@@ -95,6 +95,10 @@ nav .p-menu {
   background-color: transparent;
   border-width: 0px;
   /* text-align: left; */
+}
+
+nav .p-menuitem {
+  margin-bottom: 10px;
 }
 
 nav .p-menu-list {
