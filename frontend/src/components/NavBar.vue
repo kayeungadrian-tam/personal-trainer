@@ -6,11 +6,12 @@
     </div>
     <nav>
         <router-link to="/home">
-            <img class="site-logo"
-                v-if="!hideMenu"
-                src="https://w7.pngwing.com/pngs/82/587/png-transparent-man-with-muscle-illustration-muscular-system-skeletal-muscle-human-body-human-skeleton-human-body-miscellaneous-physical-fitness-biology.png"
-                width=100
-                height=50 />
+            <span class="site-title">Personal Trainer</span>
+            <!-- <img class="site-logo" -->
+            <!-- v-if="!hideMenu" -->
+            <!-- src="https://w7.pngwing.com/pngs/82/587/png-transparent-man-with-muscle-illustration-muscular-system-skeletal-muscle-human-body-human-skeleton-human-body-miscellaneous-physical-fitness-biology.png" -->
+            <!-- width=100 -->
+            <!-- height=50 /> -->
         </router-link>
 
         <Menu v-if="!hideMenu"
@@ -18,13 +19,13 @@
             :model="items"
             :popup="false" />
 
+        <p-Button @click="test_emit">sa</p-Button>
         <p-Button @click="logout"
             class="p-button-lg p-button-danger p-button-rounded ">
             <i class="pi pi-fw pi-power-off log-out-button"></i>
 
             Log out
         </p-Button>
-
     </nav>
 
 
@@ -42,7 +43,12 @@ import Menu from 'primevue/menu';
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
+import { defineEmits } from 'vue';
+const emit = defineEmits(['inFocus', 'submit'])
 
+const test_emit = () => {
+    emit("submit", 1)
+}
 
 const router = useRouter()
 const store = useStore();
