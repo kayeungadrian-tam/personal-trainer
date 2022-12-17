@@ -3,14 +3,7 @@
     <h1>{{ angle }}</h1>
     <h1>{{ counter }}</h1>
     <h1>{{ stage }}</h1>
-    <!-- <select v-model="videoDivice" -->
-    <!-- :items="devicesList"> -->
-    <!-- <option v-for="device in devicesList" -->
-    <!-- :key=device> -->
-    <!-- {{ device }} -->
-    <!-- </option> -->
 
-    <!-- </select>e -->
 
     {{ videoDivice }}
     <div class="webcam">
@@ -22,7 +15,8 @@
         width=640
         height=480></canvas>
     </div>
-    <p-Button @click="startCamera">Stop</p-Button>
+    <p-Button @click="startCamera">Start</p-Button>
+    <p-Button @click="stopCamera">Stop</p-Button>
   </div>
   <div class='square-box'>
     Box below
@@ -35,7 +29,7 @@
 
 import { Camera } from '@mediapipe/camera_utils';
 import { Holistic, Results, POSE_CONNECTIONS, FACEMESH_TESSELATION, HAND_CONNECTIONS, NormalizedLandmark } from '@mediapipe/holistic';
-import { ref, onBeforeUnmount, onMounted, defineComponent } from "vue";
+import { ref, defineEmits, onBeforeUnmount, onMounted, defineComponent } from "vue";
 import type { InputImage } from "@mediapipe/holistic";
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
 
@@ -52,6 +46,9 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
+
+const emit = defineEmits(['inFocus', 'count'])
+
 const videoDivice = ref(localStorage.getItem('videoDivice') || '')
 const counter = ref(0);
 const angle = ref(0);
@@ -72,6 +69,8 @@ const finaAngle = (p0: NormalizedLandmark, p1: NormalizedLandmark, p2: Normalize
   return radians * (180 / Math.PI);
 };
 
+
+
 const countPushUps = (angle: number) => {
   if (angle > 45) {
     stage.value = "up"
@@ -79,6 +78,7 @@ const countPushUps = (angle: number) => {
     if (stage.value === "up") {
       stage.value = "down"
       counter.value += 1
+      emit("count", counter.value)
     }
   }
 
@@ -166,6 +166,12 @@ const detectHolistic = (results: Results) => {
 }
 
 const stopCamera = () => {
+
+
+  console.log(typeof webVideo.value)
+  console.log(typeof webVideo.value)
+  console.log(typeof ctx.value)
+
   if (!webVideo.value?.srcObject) {
     return
   }

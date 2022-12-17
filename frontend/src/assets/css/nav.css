@@ -1,3 +1,7 @@
+@charset "utf-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Caramel&display=swap");
+
 @media screen and (max-width: 1000px) {
   .toggle-menu {
     /* background-color: orange; */
@@ -43,7 +47,16 @@
     margin-bottom: 10px;
   }
 }
+
 @media screen and (min-width: 1000px) {
+  .site-title {
+    color: #5b7985;
+    font-size: 50px;
+    line-height: 25px;
+    font-family: "Caramel", cursive;
+    /* background-color: red; */
+  }
+
   .toggle-menu {
     /* background-color: orange; */
     position: fixed;
