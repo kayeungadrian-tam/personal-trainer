@@ -2,10 +2,12 @@
     <div class="login-card">
         <Card>
             <template #title>
-                Login
+                <h2>
+                    Welcome back
+                </h2>
             </template>
             <template #content>
-
+                <p class="welcome-message">Welcome back! Login or sign-up!</p>
                 <div class="input">
                     <div class="p-inputgroup">
                         <span class="p-inputgroup-addon">
@@ -32,27 +34,16 @@
 
 
 
-                <p-Button @click="login"
-                    class="p-button-warning"
-                    label="Login" />
-
-
-                <Divider align="center">
-                    <b>or</b>
-                </Divider>
-
                 <div class="social-login">
-                    <div class="social-icon">
+                    <div class="sign-in-button">
+                        <p-Button @click="login"
+                            label="Sign in" />
+                    </div>
+                    <div class="google-button">
                         <p-Button @click="LoginWithGoolge"
-                            class="p-button-warning"
                             icon="pi pi-google"
                             label="Google" />
-                    </div>
-                    <div class="social-icon">
-                        <p-Button icon="pi pi-github"
-                            label="Github"
-                            class="p-button-warning"
-                            style="margin-left: .5em" />
+
                     </div>
                 </div>
             </template>

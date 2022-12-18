@@ -1,8 +1,21 @@
 <template>
     <title>"Welcome | Personal Trainer"</title>
     <div class="indexPage">
+
         <div class="index-inner">
-            <div class="login-form">
+            <div class="welcom-side">
+                <div class="main-slogan">
+                    <h1>Personal Trainer</h1>
+                    <p>If you are working on something that you really care about, you don’t have to be pushed. The
+                        vision pulls you.</p>
+                </div>
+            </div>
+            <div class="login-side">
+                <div class="login-card">
+                    <LoginCard />
+                </div>
+            </div>
+            <!-- <div class="login-form">
                 <div class="login-des">
                     <h1>Welcome to Personal-Trainer-Beta</h1>
                     <p>Lorem ipsum dolor sist, amet consectetur adipisicing elit. Incidunt illo ab nobis quis facere
@@ -13,9 +26,8 @@
                     <img src="@/assets/logo/index_logo.gif" />
                 </div>
                 <div class="login-card">
-                    <LoginCard />
-                </div>
-            </div>
+        </div>
+    </div> -->
 
 
         </div>

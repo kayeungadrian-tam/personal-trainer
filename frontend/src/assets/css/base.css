@@ -1,4 +1,5 @@
 @charset "utf-8";
+@import url("https://fonts.googleapis.com/css2?family=Caramel&display=swap");
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -6,7 +7,10 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-image: linear-gradient(
+
+  background-color: #0c0e0d;
+
+  /* background-image: linear-gradient(
     to left bottom,
     #6bbfd1,
     #67bcd8,
@@ -20,7 +24,7 @@
     #8983fe,
     #9773fe,
     #a95ffb
-  );
+  ); */
   min-height: 100vh;
 }
 
