@@ -7,7 +7,7 @@
                 </h2>
             </template>
             <template #content>
-                <p class="welcome-message">Welcome back! Login or sign-up!</p>
+                <p class="welcome-message">Welcome back! Sign in or register!</p>
                 <div class="input">
                     <div class="p-inputgroup">
                         <span class="p-inputgroup-addon">
