@@ -48,7 +48,8 @@
         {{ choices }}
       </div>
     </div>
-    <HelloWorld @count="chooseAnswer" />
+    <HelloWorld @count="chooseAnswer"
+      @next="get_quiz" />
   </div>
 </template>
 
@@ -90,7 +91,7 @@ const choices = ref()
 
 const get_quiz = async () => {
   answerConditions.value.forEach((number, index) => {
-    answerConditions.value[index] = Math.floor(Math.random() * 10)
+    answerConditions.value[index] = Math.floor(Math.random() * 10) + 1
   })
   const choices = []
   const url = "https://the-trivia-api.com/api/questions?limit=1"
