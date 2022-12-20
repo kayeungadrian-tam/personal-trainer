@@ -7,23 +7,32 @@
     <nav>
         <router-link to="/home">
             <span class="site-title">Personal Trainer</span>
-            <!-- <img class="site-logo" -->
-            <!-- v-if="!hideMenu" -->
-            <!-- src="https://w7.pngwing.com/pngs/82/587/png-transparent-man-with-muscle-illustration-muscular-system-skeletal-muscle-human-body-human-skeleton-human-body-miscellaneous-physical-fitness-biology.png" -->
-            <!-- width=100 -->
-            <!-- height=50 /> -->
         </router-link>
+        <div class="profile">
+            <Avatar icon="pi pi-user"
+                shape="circle"
+                size="xlarge"
+                v-badge.danger="4"
+                label="" />
+            <Skeleton width="80%"
+                height="1.2rem"
+                animation="wave" />
+            <div class="trophies">
 
+                <img src="https://cdn-icons-png.flaticon.com/128/9032/9032376.png" />
+                <img src="https://cdn-icons-png.flaticon.com/128/8888/8888935.png" />
+                <img src="https://cdn-icons-png.flaticon.com/128/7933/7933103.png" />
+
+            </div>
+        </div>
         <Menu v-if="!hideMenu"
             ref="menu"
             :model="items"
             :popup="false" />
 
-        <p-Button @click="test_emit">sa</p-Button>
         <p-Button @click="logout"
             class="p-button-lg p-button-danger p-button-rounded ">
             <i class="pi pi-fw pi-power-off log-out-button"></i>
-
             Log out
         </p-Button>
     </nav>
@@ -38,17 +47,18 @@
 
   
 <script setup lang="ts">
-import Sidebar from 'primevue/sidebar';
+import Avatar from 'primevue/avatar';
 import Menu from 'primevue/menu';
+import Sidebar from 'primevue/sidebar';
+import Skeleton from 'primevue/skeleton';
+
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
-import { defineEmits } from 'vue';
+import { defineEmits } from 'vue'
+    ;
 const emit = defineEmits(['inFocus', 'submit'])
 
-const test_emit = () => {
-    emit("submit", 1)
-}
 
 const router = useRouter()
 const store = useStore();

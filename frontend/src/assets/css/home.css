@@ -12,35 +12,108 @@
   justify-content: center;
 }
 
+.dashboard {
+  color: whitesmoke;
+}
+
+.main h2 {
+  text-align: left;
+  /* padding-left: 200px; */
+  /* left: 0; */
+}
+
+.main h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 1px;
+  background-color: whitesmoke;
+  margin-top: 2px;
+  margin-left: 10px;
+}
+
+.mission-today {
+  /* background-color: red; */
+  /* max-height: 420px; */
+  /* max-width: 500px; */
+  margin: 0 auto;
+}
+
+.p-carousel-items-content {
+  background-color: gray;
+  height: 250px;
+}
+
+.p-datatable-table {
+  background-color: green;
+}
+
+.p-datatable-scrollable {
+  background-color: green;
+}
+
 @media screen and (min-width: 1000px) {
-  .home {
-    padding-top: 20px;
-    min-height: 100vh;
+  .dashboard {
+    /* height: 100vh; */
+    /* background-color: red; */
+    /* width: 100vw; */
+    /* max-width: 1000px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-evenly; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-left: 280px;
+    padding: 0 100px;
+    color: whitesmoke;
   }
 
   .main {
-    /* background-color: red; */
-    margin-left: 220px;
-    text-align: left;
     padding: 50px 0;
+    width: 100%;
   }
 
   .main h2 {
-    padding-left: 200px;
+    text-align: left;
+    /* padding-left: 200px; */
+    /* left: 0; */
   }
+
   .main h2::after {
     content: "";
     display: block;
-    width: 100px;
-    height: 3px;
-    background-color: #000000;
+    width: 80px;
+    height: 1px;
+    background-color: whitesmoke;
     margin-top: 2px;
+    margin-left: 10px;
   }
 }
 
-.homes {
-  padding-top: 20px;
-  min-height: 100vh;
-  max-width: 600px;
-  margin: 0 auto;
+.home {
+  background-color: red;
+}
+
+.week-chart-container {
+  /* background-color: whitesmoke; */
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(6.5px);
+  -webkit-backdrop-filter: blur(6.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 20px 20px 50px 20px;
+  height: 40vh;
+  /* height: 380px; */
+  height: 300px;
+  position: relative;
+  /* width: calc(100% - 40px); */
+  /* overflow: hidden; */
+}
+
+.week-chart-container .week-chart {
+  display: block;
+  position: relative;
+  height: 100%;
 }

@@ -1,15 +1,15 @@
 <template>
   <NavBar />
-  <div class="home">
+  <div class="dashboard">
     <div class="title">
       <h1>
         Welcome back <span class="user-name">{{ store.state.user.displayName }}</span>
       </h1>
     </div>
 
+
     <!-- All EXs -->
     <div class="main">
-      <h2>All Excercises</h2>
       <div class="excercise-board">
         <ExcerciseCard msg="Push Up"
           :progress=25 />
@@ -18,9 +18,48 @@
           :progress=25 />
 
 
+
       </div>
+      <div class="mission-today">
+
+        <Carousel :value="cars"
+          :numVisible="1"
+          :numScroll="1">
+          <template #header>
+            <h2>Custom Header</h2>
+          </template>
+          <template #item="slotProps">
+            Content
+
+            {{ slotProps.data.name }}
+
+          </template>
+          <template #footer>
+            <p>Custom Footer</p>
+          </template>
+        </Carousel>
+
+      </div>
+      <div class="week-chart-container">
+        <h2>Performance</h2>
+        <!-- <div class="week-chart"> -->
+        <Chart type="line"
+          style="height: 100%;"
+          :data="basicData"
+          :options="basicOptions" />
+        <!-- </div> -->
+      </div>
+
+      <p-Button @click="test">sa</p-Button>
+      <TestFirebaseVue />
+      <DataTable :value="data.data"
+        responsiveLayout="scroll">
+        <Column v-for="col of columns"
+          :field="col.field"
+          :header="col.header"
+          :key="col.field"></Column>
+      </DataTable>
     </div>
-    <TestFirebaseVue />
   </div>
 
 
@@ -34,11 +73,124 @@
 
 
 <script setup lang="ts">
-
-import Sidebar from 'primevue/sidebar';
+import { onMounted } from 'vue';
 import { useStore } from 'vuex'
+
+
 import ExcerciseCard from '@/components/ExcerciseCard.vue'
 import NavBar from "@/components/NavBar.vue";
+
+import getLastWeeksDate from "@/composables/time_utils";
+
+import Chart from 'primevue/chart';
+import Skeleton from 'primevue/skeleton';
+import Carousel from 'primevue/carousel';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import ColumnGroup from 'primevue/columngroup';
+import Row from 'primevue/row'
+
+const lastWeekLabels = ref();
+const basicData = ref();
+
+const columns = ref([
+  { field: 'id', header: 'Code' },
+  { field: 'name', header: 'Name' },
+  { field: 'category', header: 'Category' },
+  { field: 'quantity', header: 'Quantity' }
+]);
+
+const data = ref({
+  "data": [
+    { "id": "1000", "code": "f230fh0g3", "name": "Bamboo Watch", "description": "Product Description", "image": "bamboo-watch.jpg", "price": 65, "category": "Accessories", "quantity": 24, "inventoryStatus": "INSTOCK", "rating": 5 },
+    { "id": "1001", "code": "nvklal433", "name": "Black Watch", "description": "Product Description", "image": "black-watch.jpg", "price": 72, "category": "Accessories", "quantity": 61, "inventoryStatus": "INSTOCK", "rating": 4 },
+    { "id": "1002", "code": "zz21cz3c1", "name": "Blue Band", "description": "Product Description", "image": "blue-band.jpg", "price": 79, "category": "Fitness", "quantity": 2, "inventoryStatus": "LOWSTOCK", "rating": 3 },
+    { "id": "1003", "code": "244wgerg2", "name": "Blue T-Shirt", "description": "Product Description", "image": "blue-t-shirt.jpg", "price": 29, "category": "Clothing", "quantity": 25, "inventoryStatus": "INSTOCK", "rating": 5 },
+    { "id": "1004", "code": "h456wer53", "name": "Bracelet", "description": "Product Description", "image": "bracelet.jpg", "price": 15, "category": "Accessories", "quantity": 73, "inventoryStatus": "INSTOCK", "rating": 4 },
+    { "id": "1005", "code": "av2231fwg", "name": "Brown Purse", "description": "Product Description", "image": "brown-purse.jpg", "price": 120, "category": "Accessories", "quantity": 0, "inventoryStatus": "OUTOFSTOCK", "rating": 4 },
+    { "id": "1006", "code": "bib36pfvm", "name": "Chakra Bracelet", "description": "Product Description", "image": "chakra-bracelet.jpg", "price": 32, "category": "Accessories", "quantity": 5, "inventoryStatus": "LOWSTOCK", "rating": 3 },
+    { "id": "1007", "code": "mbvjkgip5", "name": "Galaxy Earrings", "description": "Product Description", "image": "galaxy-earrings.jpg", "price": 34, "category": "Accessories", "quantity": 23, "inventoryStatus": "INSTOCK", "rating": 5 },
+    { "id": "1008", "code": "vbb124btr", "name": "Game Controller", "description": "Product Description", "image": "game-controller.jpg", "price": 99, "category": "Electronics", "quantity": 2, "inventoryStatus": "LOWSTOCK", "rating": 4 },
+    { "id": "1009", "code": "cm230f032", "name": "Gaming Set", "description": "Product Description", "image": "gaming-set.jpg", "price": 299, "category": "Electronics", "quantity": 63, "inventoryStatus": "INSTOCK", "rating": 3 }
+  ]
+})
+
+const cars = ref([
+  { name: "adrian" },
+  { name: "peter" },
+  { name: "mark" },
+  { name: "john" },
+  { name: "sam" }
+])
+
+onMounted(async () => {
+  lastWeekLabels.value = await getLastWeeksDate();
+  // lastWeekLabels.value = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+  basicData.value = ({
+    // labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: lastWeekLabels.value,
+
+    datasets: [
+      {
+        label: 'My First dataset',
+        borderColor: '#42A5F5',
+        backgroundColor: '#42A5F515',
+        fill: true,
+        tension: .4,
+        data: [65, 59, 80, 81, 56, 55, 40]
+      },
+      {
+        label: 'My Second dataset',
+        fill: true,
+        borderColor: '#FFA726',
+        backgroundColor: 'rgba(255,167,38,0.2)',
+        tension: .4,
+        data: [28, 48, 40, 19, 86, 27, 90]
+      }
+    ]
+  })
+
+
+})
+
+
+
+const test = () => {
+  const _time = getLastWeeksDate();
+  console.log("time", _time)
+}
+
+const basicOptions = ref({
+  plugins: {
+    legend: {
+      labels: {
+        color: '#495057'
+      }
+    }
+  },
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    x: {
+      ticks: {
+        color: 'whitesmoke'
+      },
+      grid: {
+        color: '#495057'
+      }
+    },
+    y: {
+      ticks: {
+        // color: '#495057'
+      },
+      grid: {
+        // color: '#ebedef'
+      }
+    }
+  }
+})
+
 
 const visibleLeft = ref(false)
 
