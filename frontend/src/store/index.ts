@@ -53,7 +53,6 @@ const store = createStore({
             const provider = new GoogleAuthProvider();
             const response = await signInWithPopup(auth, provider);
             if (response) {
-                // console.table(response)
                 context.commit('setUser', response.user)
             }
         }

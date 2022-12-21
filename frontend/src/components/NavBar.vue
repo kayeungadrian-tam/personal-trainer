@@ -9,19 +9,26 @@
             <span class="site-title">Personal Trainer</span>
         </router-link>
         <div class="profile">
-            <Avatar icon="pi pi-user"
+            <Avatar :image="store.state.user?.photoURL || ''"
                 shape="circle"
-                size="xlarge"
-                v-badge.danger="4"
-                label="" />
-            <Skeleton width="80%"
-                height="1.2rem"
-                animation="wave" />
-            <div class="trophies">
+                size="xlarge" />
 
-                <img src="https://cdn-icons-png.flaticon.com/128/9032/9032376.png" />
-                <img src="https://cdn-icons-png.flaticon.com/128/8888/8888935.png" />
-                <img src="https://cdn-icons-png.flaticon.com/128/7933/7933103.png" />
+            <Knob v-model="value"
+                :min="0"
+                :max="100"
+                valueColor="#5b7985" />
+            <div class="trophies">
+                <img src="https://cdn-icons-png.flaticon.com/128/9032/9032376.png"
+                    width=40
+                    height=40 />
+                <img class="trophy-icon"
+                    src="https://cdn-icons-png.flaticon.com/128/8888/8888935.png"
+                    width=40
+                    height=40 />
+                <img class="trophy-icon"
+                    src="https://cdn-icons-png.flaticon.com/128/7933/7933103.png"
+                    width=40
+                    height=40 />
 
             </div>
         </div>
@@ -51,6 +58,7 @@ import Avatar from 'primevue/avatar';
 import Menu from 'primevue/menu';
 import Sidebar from 'primevue/sidebar';
 import Skeleton from 'primevue/skeleton';
+import Knob from 'primevue/knob';
 
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -59,6 +67,8 @@ import { defineEmits } from 'vue'
     ;
 const emit = defineEmits(['inFocus', 'submit'])
 
+
+const value = ref(20);
 
 const router = useRouter()
 const store = useStore();
@@ -118,6 +128,11 @@ const items = ref(
             url: "https://adrian-tam.notion.site/Personal-Trainer-fa1afe46158548da8a8239762d3d7669",
             target: "blank"
         },
+        {
+            label: "Memo",
+            icon: 'pi-file-edit',
+            to: "/memo"
+        }
 
         // {
         //     label: 'Options',

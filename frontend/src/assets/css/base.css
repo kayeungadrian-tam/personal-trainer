@@ -94,3 +94,7 @@ nav a.router-link-exact-active {
   margin-top: 5px;
   margin-bottom: 20px;
 }
+
+body {
+  min-height: 100vh;
+}

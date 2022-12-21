@@ -30,6 +30,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/webcam',
     name: 'webcam',
     component: () => import(/* webpackChunkName: "about" */ '../views/WebCamView.vue')
+  },
+  {
+    path: '/memo',
+    name: 'memo',
+    component: () => import(/* webpackChunkName: "about" */ '../views/MemoView.vue')
   }
 ]
 

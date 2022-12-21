@@ -3,13 +3,14 @@
   <div class="dashboard">
     <div class="title">
       <h1>
-        Welcome back <span class="user-name">{{ store.state.user.displayName }}</span>
+        Welcome back <span class="user-name">{{ store.state.user?.displayName || "empty" }}</span>
       </h1>
     </div>
 
 
     <!-- All EXs -->
     <div class="main">
+      {{ store.state }}
       <div class="excercise-board">
         <ExcerciseCard msg="Push Up"
           :progress=25 />

@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+.memo-page {
+  height: 100%;
+  margin-left: 280px;
+  padding: 25px;
+  width: 60%;
+  /* margin: 0 auto; */
+}
+
+h2 {
+  margin: 10px auto;
+}
+
+.memo-add-button {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+
+.p-dialog-content {
+  width: 400px;
+}
