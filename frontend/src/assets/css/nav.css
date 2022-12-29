@@ -164,3 +164,79 @@ nav .log-out-button {
   height: 120px;
   /* width: 100%; */
 }
+
+.sidebar-profile {
+  /* background-color: red; */
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sidebar-profile .display-name {
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.display-name p {
+  color: gray;
+  font-style: italic;
+}
+
+.sidebar-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.sidebar-items-container {
+  display: flex;
+  cursor: pointer;
+  height: 40px;
+  align-items: center;
+  padding: 10px;
+  /* justify-content: center; */
+}
+
+.sidebar-items-container:hover {
+  background-color: #e9ecef;
+}
+
+.sidebar-item-label {
+  color: #2c3e50;
+  font-weight: bold;
+  margin-left: 15px;
+  font-size: 1.2rem;
+}
+
+.p-sidebar {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(7.5px);
+  -webkit-backdrop-filter: blur(7.5px);
+  /* border-radius: 10px; */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+}
+
+.sidebar-profile-info {
+  background-color: red;
+}
+
+.sidebar-logout-button {
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+}
+
+.sidebar {
+  height: calc(100vh - 100px);
+}
+
+.p-sidebar {
+  /* position: relative; */
+}

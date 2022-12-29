@@ -2,7 +2,7 @@
     <div class="toggle-menu">
         <i class="pi pi-align-justify"
             @click="visibleleft = true"
-            style="font-size: 1.5rem; font-weight: 900;"></i>
+            style="font-size: 1.5rem; font-weight: 900; color:whitesmoke"></i>
     </div>
     <nav>
         <router-link to="/home">
@@ -47,7 +47,63 @@
 
 
     <Sidebar v-model:visible="visibleleft">
-        Content
+        <div class="sidebar">
+            <div class="sidebar-profile">
+                <Avatar :image="store.state.user?.photoURL || ''"
+                    shape="circle"
+                    size="xlarge" />
+                <div class="display-name">
+
+                    <h3>{{ store.state.user?.displayName }}</h3>
+                    <p>Memeber</p>
+                </div>
+
+
+
+            </div>
+            <div class="profile">
+                <Knob v-model="value"
+                    :min="0"
+                    :max="100"
+                    valueColor="#5b7985" />
+                <div class="trophies">
+                    <img src="https://cdn-icons-png.flaticon.com/128/9032/9032376.png"
+                        width=40
+                        height=40 />
+                    <img class="trophy-icon"
+                        src="https://cdn-icons-png.flaticon.com/128/8888/8888935.png"
+                        width=40
+                        height=40 />
+                    <img class="trophy-icon"
+                        src="https://cdn-icons-png.flaticon.com/128/7933/7933103.png"
+                        width=40
+                        height=40 />
+                </div>
+            </div>
+
+            <div class="sidebar-items">
+                <div class="sidebar-items-container"
+                    v-for="(item, index) in items"
+                    :key="index">
+                    <span style="width:100%;"
+                        @click="sidebarButton(item.to || '/')">
+                        <i :class="item.icon" />
+                        <span class="sidebar-item-label">
+                            {{ item.label }}
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="sidebar-logout-button">
+                <p-Button @click="logout"
+                    class="p-button-lg p-button-danger p-button-rounded ">
+                    <i class="pi pi-fw pi-power-off log-out-button"></i>
+                    Log out
+                </p-Button>
+            </div>
+        </div>
     </Sidebar>
 
 </template>
@@ -100,7 +156,10 @@ const _toggle = (event: any) => {
     menu.value?.toggle(event);
 };
 
-
+const sidebarButton = (path: string) => {
+    console.log(path);
+    router.push(path)
+}
 
 const items = ref(
     [
