@@ -1,164 +1,12 @@
 @charset "utf-8";
 
-@media screen and (max-width: 1000px) {
-  .indexPage {
-  }
-
-  .indexPage .index-inner {
-    /* background-color: red; */
-    /* height: 100vh; */
-    /* max-width: 600px; */
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .indexPage .login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 1000px;
-    justify-content: space-evenly;
-  }
-
-  .indexPage .login-des {
-    max-width: 720px;
-    width: 100%;
-  }
-}
-
-.indexPage .welcom-side {
-  width: 100%;
-  /* height: 100vh; */
-}
-
-.indexPage .welcom-side {
-  background-image: url(../excercise/fitness_bg.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  object-fit: fill;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.indexPage .login-side {
-  /* background: rgba(144, 19, 254, 0.5); */
-  background: #c1c2c4;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.indexPage .index-inner {
-  height: 100vh;
-  max-width: 1300px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.indexPage Button {
-  width: 80%;
-}
-
-.indexPage .index-inner .login-form {
-  display: flex;
-  justify-content: space-evenly;
-  /* align-items: flex-start; */
-}
-
-.indexPage .login-logo {
-  background-color: blue;
-}
-
-.indexPage img {
-  width: 360px;
-  /* height: 200px; */
-}
-
-.main-slogan {
-  color: whitesmoke;
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  width: 80%;
-  height: 25%;
-  margin-top: 50%;
-}
-
-.main-slogan h1 {
-  font-family: "Caramel", cursive;
-  text-shadow: 1px 5px 1px #4b2c14;
-  font-size: 100px;
-}
-.main-slogan p {
-  text-align: justify;
-  font-size: 1.3rem;
-  margin: 0 20px;
-}
-
-.indexPage .index-inner .login-card {
-  width: 80%;
-  min-height: 500px;
-  margin: auto auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.indexPage .p-card {
+.index-page .p-card {
   background: whitesmoke;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.indexPage .index-inner .login-card .input {
-  text-align: center;
-  /* margin-top: 5px; */
-  width: 80%;
-  margin: 20px auto;
-}
-
-.social-login {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin: 20px auto;
-}
-
-.sign-in-button,
-.google-button {
-  margin-top: 20px;
-  text-align: center;
-}
-
-img.google-logo {
-  width: 50px;
-  height: auto;
-}
-
-.login-card-footer {
-  color: black;
-  font-style: italic;
 }
 
 .login-card-footer .register {
@@ -209,4 +57,248 @@ img.google-logo {
 .welcome-message {
   color: gray;
   font-style: italic;
+}
+
+@media screen and (max-width: 1000px) {
+  .index-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../excercise/fitness_bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    object-fit: fill;
+    width: 100%;
+  }
+
+  .index-page .index-inner {
+    max-width: 600px;
+    /* display: flex; */
+    /* flex-direction: column-reverse; */
+    /* display: block; */
+    /* top: 0; */
+    /* left: 0; */
+    /* height: 100vh; */
+    /* max-width: 600px; */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+  }
+
+  .main-slogan {
+    color: whitesmoke;
+    /* background-color: red; */
+    transform: translateY(-40%);
+  }
+
+  .main-slogan h1 {
+    font-family: "Caramel", cursive;
+    text-shadow: 1px 5px 1px #4b2c14;
+    font-size: 100px;
+  }
+  .main-slogan p {
+    text-align: justify;
+    font-size: 1.3rem;
+    margin: 10px 30px;
+    /* visibility: hidden; */
+  }
+
+  .index-page .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+    justify-content: space-evenly;
+  }
+
+  .index-page .p-card {
+    background: rgba(245, 245, 245, 0.5);
+  }
+
+  .index-page .login-side {
+    background: #c1c2c412;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 100%;
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .index-page .index-inner h2 {
+    /* font-family: "Caramel", cursive; */
+    color: whitesmoke;
+    text-shadow: 1px 5px 1px gray;
+  }
+
+  .index-page .index-inner p {
+    /* font-family: "Caramel", cursive; */
+    color: whitesmoke;
+    /* text-shadow: 1px 5px 1px gray; */
+  }
+
+  .index-page .index-inner .login-card {
+    /* width: 80%; */
+    /* min-height: 500px; */
+    /* margin: auto auto; */
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .index-page .index-inner .login-card .input {
+    text-align: center;
+    /* margin-top: 5px; */
+    max-width: 70%;
+    margin: 20px auto;
+  }
+
+  .index-page .social-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .index-page .sign-in-button .p-button {
+    /* background-color: red; */
+    width: 200px;
+  }
+
+  .index-page .google-button .p-button {
+    /* background-color: red; */
+    width: 200px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .index-page .welcom-side {
+    width: 100%;
+    /* height: 100vh; */
+  }
+
+  .index-page .welcom-side {
+    background-image: url(../excercise/fitness_bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .index-page .login-side {
+    /* background: rgba(144, 19, 254, 0.5); */
+    background: #c1c2c4;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .index-page .index-inner {
+    height: 100vh;
+    max-width: 1300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .index-page Button {
+    width: 80%;
+  }
+
+  .index-page .index-inner .login-form {
+    display: flex;
+    justify-content: space-evenly;
+    /* align-items: flex-start; */
+  }
+
+  .index-page .login-logo {
+    background-color: blue;
+  }
+
+  .index-page img {
+    width: 360px;
+    /* height: 200px; */
+  }
+
+  .main-slogan {
+    color: whitesmoke;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 80%;
+    height: 25%;
+    margin-top: 50%;
+  }
+
+  .main-slogan h1 {
+    font-family: "Caramel", cursive;
+    text-shadow: 1px 5px 1px #4b2c14;
+    font-size: 5.5rem;
+  }
+  .main-slogan p {
+    text-align: justify;
+    font-size: 1.3rem;
+    margin: 0 20px;
+  }
+
+  .index-page .index-inner .login-card {
+    width: 80%;
+    min-height: 500px;
+    margin: auto auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .index-page .index-inner .login-card .input {
+    text-align: center;
+    /* margin-top: 5px; */
+    width: 80%;
+    margin: 20px auto;
+  }
+
+  .social-login {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 20px auto;
+  }
+
+  .sign-in-button,
+  .google-button {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  img.google-logo {
+    width: 50px;
+    height: auto;
+  }
+
+  .login-card-footer {
+    color: black;
+    font-style: italic;
+  }
 }

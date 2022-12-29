@@ -1,6 +1,6 @@
 <template>
     <title>"Welcome | Personal Trainer"</title>
-    <div class="indexPage">
+    <div class="index-page">
 
         <div class="index-inner">
             <div class="welcom-side">

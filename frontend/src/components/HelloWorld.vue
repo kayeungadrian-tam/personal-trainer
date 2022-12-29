@@ -1,7 +1,7 @@
 <template>
   <div class="hello"
     style="color: white">
-    <h1>{{ angle }}</h1>
+    <h1>{{ haha }}</h1>
     <h1>{{ counter }}</h1>
     <h1>{{ stage }}</h1>
     <h1>{{ distance }}</h1>
@@ -18,6 +18,7 @@
         hidden></video>
       <canvas ref="outVideo"
         class="outVideo"
+        style="    transform: scaleX(-1);"
         width=640
         height=480></canvas>
     </div>
@@ -37,7 +38,7 @@ import Knob from 'primevue/knob';
 
 import { Camera } from '@mediapipe/camera_utils';
 import { Holistic, Results, POSE_CONNECTIONS, FACEMESH_TESSELATION, HAND_CONNECTIONS, NormalizedLandmark } from '@mediapipe/holistic';
-import { ref, defineEmits, onBeforeUnmount, onMounted, defineComponent } from "vue";
+import { ref, defineEmits, onBeforeUnmount, onMounted, onUnmounted, defineComponent } from "vue";
 import type { InputImage } from "@mediapipe/holistic";
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
 
@@ -61,7 +62,7 @@ const videoDivice = ref(localStorage.getItem('videoDivice') || '')
 const counter = ref(0);
 const angle = ref(0);
 const stage = ref("hello");
-
+const haha = ref(0)
 
 const webVideo = ref<HTMLVideoElement>()
 const outVideo = ref<HTMLCanvasElement>()
@@ -91,6 +92,8 @@ const countPushUps = (angle: number) => {
   }
 
 }
+
+
 
 
 
@@ -150,13 +153,16 @@ const delay = ref(0);
 
 const detectHolistic = (results: Results) => {
   if (results.poseLandmarks) {
-    // console.log(results.poseLandmarks[11].x);
-    // const x = results.poseLandmarks[386].x;
     const p0 = results.poseLandmarks[23];
     const p1 = results.poseLandmarks[11];
     const p2 = results.poseLandmarks[13];
 
 
+    const left_shoulder = results.poseLandmarks[11];
+    const right_shoulder = results.poseLandmarks[12];
+
+    haha.value = (left_shoulder.y + right_shoulder.y) / 2;
+    console.log(haha.value * 480);
 
     const right_hand_points = [17, 19, 21];
 
@@ -206,6 +212,17 @@ const detectHolistic = (results: Results) => {
 
 }
 
+
+function stopBothVideoAndAudio(stream: any) {
+  stream.getTracks().forEach(function (track: any) {
+    if (track.readyState == 'live') {
+      console.log("Running")
+      track.stop();
+    }
+  });
+}
+
+
 const stopCamera = () => {
 
 
@@ -217,10 +234,11 @@ const stopCamera = () => {
     return
   }
   const stream = webVideo.value.srcObject as MediaStream
-  const tracks = stream.getTracks()
-  tracks.forEach((track) => {
-    track.stop()
-  })
+  stopBothVideoAndAudio(stream);
+  // const tracks = stream.getTracks()
+  // tracks.forEach((track) => {
+  // track.stop();
+  // })
   webVideo.value.srcObject = null
   ctx.value.clearRect(0, 0, 1280, 720)
   camera.value?.stop()
@@ -232,10 +250,15 @@ onMounted(() => {
   ctx.value = outVideo?.value?.getContext('2d')
 })
 
+onUnmounted(() => {
+  // stopCamera();
+  console.log("Unmounted");
+})
 
+onBeforeUnmount(() => {
+  stopCamera()
+  console.log("BeforeUnmounted");
 
-onBeforeUnmount(async () => {
-  // stopCamera()
 })
 
 // const devicesList = ref<string[]>([UNSELECTED]); // videoリスト

@@ -120,7 +120,9 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
 import { defineEmits } from 'vue'
-    ;
+
+import stopCamera from "@/composables/camera_utils"
+
 const emit = defineEmits(['inFocus', 'submit'])
 
 
