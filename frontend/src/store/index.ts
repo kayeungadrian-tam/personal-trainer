@@ -9,6 +9,12 @@ import {
 } from 'firebase/auth'
 
 
+const init_state = {
+    user: null,
+
+};
+
+
 const store = createStore({
     state: {
         //The user state will initially be null. After login, this state will be updated

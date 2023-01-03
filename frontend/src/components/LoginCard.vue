@@ -7,7 +7,7 @@
                 </h2>
             </template>
             <template #content>
-                <p class="welcome-message">Welcome back! Sign in or register!</p>
+                <p class="welcome-message">Choose a way to sign in.</p>
                 <div class="input">
                     <div class="p-inputgroup">
                         <span class="p-inputgroup-addon">
@@ -88,10 +88,20 @@ const store = useStore()
 const router = useRouter()
 
 
-const login = () => {
-    store.state.user = "empty";
-    router.push('/home')
-
+const login = async () => {
+    // store.state.user = "empty";
+    // router.push('/home');
+    try {
+        await store.dispatch('login', {
+            email: email.value,
+            password: password.value
+        })
+        router.push('/home')
+    }
+    catch (err) {
+        // error.value = err.message
+        console.error(err)
+    }
 }
 
 const handleSubmit = async () => {

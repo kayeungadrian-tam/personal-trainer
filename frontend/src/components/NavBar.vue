@@ -8,7 +8,8 @@
         <router-link to="/home">
             <span class="site-title">Personal Trainer</span>
         </router-link>
-        <div class="profile">
+        <div class="profile"
+            @click="router.push('/profile')">
             <Avatar :image="store.state.user?.photoURL || ''"
                 shape="circle"
                 size="xlarge" />
@@ -57,11 +58,9 @@
                     <h3>{{ store.state.user?.displayName }}</h3>
                     <p>Memeber</p>
                 </div>
-
-
-
             </div>
-            <div class="profile">
+            <div class="profile"
+                @click="router.push('/profile')">
                 <Knob v-model="value"
                     :min="0"
                     :max="100"
@@ -113,8 +112,9 @@
 import Avatar from 'primevue/avatar';
 import Menu from 'primevue/menu';
 import Sidebar from 'primevue/sidebar';
-import Skeleton from 'primevue/skeleton';
 import Knob from 'primevue/knob';
+import Breadcrumb from 'primevue/breadcrumb';
+
 
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'

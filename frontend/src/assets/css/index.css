@@ -153,25 +153,32 @@
   .index-page .index-inner .login-card .input {
     text-align: center;
     /* margin-top: 5px; */
-    max-width: 70%;
+    max-width: 55%;
     margin: 20px auto;
   }
 
   .index-page .social-login {
+    max-width: 65%;
+    margin: 0 auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
   }
 
+  .index-page .sign-in-button,
+  .google-button {
+    width: 100%;
+  }
+
   .index-page .sign-in-button .p-button {
-    /* background-color: red; */
-    width: 200px;
+    width: 80%;
   }
 
   .index-page .google-button .p-button {
+    width: 80%;
     /* background-color: red; */
-    width: 200px;
   }
 }
 

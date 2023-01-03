@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+.profile-inner .profile-progress {
+  border-radius: 10px;
+  background-color: rgba(244, 244, 244, 0.95);
+}
+
+.profile-inner .p-card {
+  border-radius: 10px;
+  background-color: rgba(244, 244, 244, 0.95);
+}
+
+.profile-inner .tmp .p-progressbar-value {
+  background-color: red;
+}
+
+.profile-inner .tmp2 .p-progressbar-value {
+  background-color: green;
+}
+
+.profile-progess-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 10px;
+}
