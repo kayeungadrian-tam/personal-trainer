@@ -21,10 +21,13 @@
     "firebase": "^9.14.0",
     "firebase-admin": "^11.3.0",
     "install": "^0.13.0",
+    "particles.vue": "^3.7.1",
     "primeicons": "^6.0.1",
     "primevue": "^3",
+    "tsparticles": "^2.7.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
+    "vue3-particles": "^2.7.1",
     "vuefire": "^3.0.0-alpha.10",
     "vuex": "^4.1.0",
     "wave-ui": "^2.46.0"

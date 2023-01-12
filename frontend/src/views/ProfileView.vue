@@ -68,8 +68,14 @@
                     @click="deleteDocument(value.id)">TMP</p-Button>
 
             </div>
+            <div>
 
+                esotmesotmesotmesomo
+
+
+            </div>
         </h3>
+
     </div>
     <p-Button label="Toast"
         @click="showToast"></p-Button>
@@ -110,10 +116,12 @@ import { useFirestore, useDocument, useCollection } from 'vuefire'
 import {
     getFirestore,
     collection,
+    // getCollecionts,
     doc,
     addDoc,
     deleteDoc,
     setDoc,
+    getDoc,
     query,
     where,
     getDocs,
@@ -129,25 +137,56 @@ const store = useStore();
 const db = getFirestore();
 const _collection = collection(db, "u_progess");
 const u_progess = useCollection(collection(db, 'u_progess'))
+// const time_line = useCollection(collection(db, `u_progess/${store.state.user?.uid || ""}`))
 
 
+const result = ref();
 
 
 const inputText = ref("");
 
-
+const tmpData = ref();
 const toast = useToast();
 const toast_message = ref({});
+const emptyList = ref([{}]);
 
 
 const getExcercises = async () => {
-    // const excerciseData = await getDocs(query(_collection, where(documentId(), "==", store.state.user?.uid)));
-    const _collection = collection(db, "u_progess");
-    await getDocs(query(_collection, where(documentId(), "==", store.state.user?.uid))).then(snapshot => {
-        snapshot.forEach(doc => {
-            console.log(`${doc.id}: ${doc.data().uid}`);
-        })
-    })
+
+
+    const docRef = doc(db, "u_progess", "test");
+
+    const subcollection = await collection(
+        // query(_collection, where(documentId(), "==", "test"))
+        docRef,
+        "sub_collection"
+    )
+        ;
+
+
+
+    tmpData.value = useCollection(subcollection);
+    console.log(tmpData);
+
+    // const ssss = collection(subcollection, "timeline");
+    // console.table(subcollection.data);
+
+
+    // console.log(excerciseData.collection());
+    // excerciseData.docs.forEach(doc => {
+    // console.log(doc)
+    // });
+
+    // await getDocs(query(_collection, where(documentId(), "==", store.state.user?.uid))).then(snapshot => {
+    //     snapshot.forEach(doc => {
+    //         console.log(`${doc.id}: ${doc.data().uid}`);
+    //     })
+    // })
+    // const snapshot = await getDocs(query(_collection, where(documentId(), "==", store.state.user?.uid)));
+    // snapshot.forEach(doc => {
+    //     console.log(`${doc.id}: ${doc.data().uid}`);
+    // });
+
 }
 
 
@@ -155,12 +194,15 @@ const showToast = async () => {
     toast.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', life: 3000 });
 
     // const snapshot = await getDocs(query(_collection, where("content", "==", "Adrian")));
-
     await getDocs(query(_collection, where(documentId(), "==", store.state.user?.uid))).then(snapshot => {
         snapshot.forEach(doc => {
             console.log(`${doc.id}: ${doc.data().uid}`);
         })
     })
+
+
+    console.log(emptyList.value);   //
+    // result.value = emptyList;
 
 }
 

@@ -1,6 +1,8 @@
 <template>
 
   <body>
+
+    <ParticlesVue v-if="store.state.user" />
     <router-view />
   </body>
 </template>
@@ -10,6 +12,7 @@
 import { useStore } from 'vuex'
 import { onMounted } from "vue";
 
+import ParticlesVue from "@/components/ParticlesVue.vue";
 
 const store = useStore()
 

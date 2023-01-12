@@ -3,9 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store/index'
 import PrimeVue from 'primevue/config';
-import Dialog from 'primevue/dialog';
 import Button from 'primevue/button';
 import ToastService from 'primevue/toastservice';
+import Particles from "vue3-particles";
+// import { tsParticles } from "https://cdn.jsdelivr.net/npm/tsparticles-engine/+esm";
+// import { loadFull } from "https://cdn.jsdelivr.net/npm/tsparticles/+esm";
+
 
 const app = createApp(App)
 app
@@ -13,7 +16,10 @@ app
     .use(store)
     .use(PrimeVue)
     .use(ToastService)
+    .use(Particles);
 
-app.component('p-Button', Button);
+app
+    .component('p-Button', Button)
+    ;
 
 app.mount('#app')

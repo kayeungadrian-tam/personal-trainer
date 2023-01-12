@@ -1,5 +1,6 @@
 <template>
     <NavBar />
+
     <div class="memo-page">
         <div class="title">
             <h2>

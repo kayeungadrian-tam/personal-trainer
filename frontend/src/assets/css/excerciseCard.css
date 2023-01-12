@@ -36,5 +36,5 @@
 .excercise-card .p-card:hover {
   /* opacity: 0.5; */
   cursor: pointer;
-  outline: 5px solid yellowgreen;
+  outline: 5px solid #25add6;
 }
