@@ -46,6 +46,12 @@
             <h2> ID:
                 {{ store.state.user?.uid || "uu1234" }}
             </h2>
+
+            <Chart type="line"
+                style="height: 100%; width: 100%"
+                :data="basicData"
+                :options="basicOptions" />
+
             <p-Button label="Get"
                 class="p-button-secondary"
                 style="margin-left:"
@@ -68,12 +74,16 @@
                     @click="deleteDocument(value.id)">TMP</p-Button>
 
             </div>
-            <div>
 
-                esotmesotmesotmesomo
+
+            <hr>
+            <div>
+                {{ tmpData }}
+
 
 
             </div>
+            EOF
         </h3>
 
     </div>
@@ -98,7 +108,7 @@ h3 {
 
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
@@ -107,7 +117,7 @@ import Card from 'primevue/card';
 import ProgressBar from 'primevue/progressbar';
 import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast";
-
+import Chart from 'primevue/chart';
 
 import NavBar from "@/components/NavBar.vue";
 import ProgressCard from "@/components/ProgressCard.vue";
@@ -140,6 +150,19 @@ const u_progess = useCollection(collection(db, 'u_progess'))
 // const time_line = useCollection(collection(db, `u_progess/${store.state.user?.uid || ""}`))
 
 
+const basicData = ref();
+const pushUps = ref([] as any);
+
+onMounted(async () => {
+    //   lastWeekLabels.value = await getLastWeeksDate();
+    // lastWeekLabels.value = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+
+    // await getExcercises();
+
+})
+
+
 const result = ref();
 
 
@@ -151,22 +174,85 @@ const toast_message = ref({});
 const emptyList = ref([{}]);
 
 
+const basicOptions = ref({
+    plugins: {
+        legend: {
+            labels: {
+                color: '#495057'
+            }
+        }
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+        x: {
+            ticks: {
+                color: 'whitesmoke'
+            },
+            grid: {
+                color: '#495057'
+            }
+        },
+        y: {
+            ticks: {
+                // color: '#495057'
+            },
+            grid: {
+                // color: '#ebedef'
+            }
+        }
+    }
+})
+
+
+
 const getExcercises = async () => {
 
 
-    const docRef = doc(db, "u_progess", "test");
+    const docRef = doc(db, "u_progess", store.state.user?.uid);
 
     const subcollection = await collection(
         // query(_collection, where(documentId(), "==", "test"))
         docRef,
-        "sub_collection"
+        "timeline"
     )
         ;
 
 
 
     tmpData.value = useCollection(subcollection);
-    console.log(tmpData);
+
+    tmpData.value.data.forEach(
+        (doc: any) => pushUps.value.push(doc.count)
+    )
+
+
+    basicData.value = ({
+        // labels: ['January', 'February', 'March'],
+        // labels: lastWeekLabels.value,
+
+        labels: Array.from(Array(pushUps.value.length).keys()),
+
+        datasets: [
+            {
+                label: 'My First dataset',
+                borderColor: '#42A5F5',
+                backgroundColor: '#42A5F515',
+                fill: true,
+                tension: .4,
+                data: pushUps.value
+            },
+            // {
+            //     label: 'My Second dataset',
+            //     fill: true,
+            //     borderColor: '#FFA726',
+            //     backgroundColor: 'rgba(255,167,38,0.2)',
+            //     tension: .4,
+            //     data: [28, 48, 40]
+            // }
+        ]
+    })
+
 
     // const ssss = collection(subcollection, "timeline");
     // console.table(subcollection.data);
@@ -240,7 +326,7 @@ const addFireStore = (input: string) => {
             // displayName: store.state.user.displayName,
             code: "e01",
             title: "push_up",
-            count: 10,
+            count: 16,
         });
 
 
