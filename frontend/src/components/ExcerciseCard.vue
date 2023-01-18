@@ -1,5 +1,6 @@
 <template>
-    <div class="excercise-card">
+    <div class="excercise-card"
+        @click="router.push('/exercise')">
 
         <Card>
 
@@ -59,9 +60,11 @@ import Card from 'primevue/card';
 import Tag from 'primevue/tag';
 import Image from 'primevue/image';
 import Knob from 'primevue/knob';
+
 import { ref, defineComponent, PropType, defineProps } from 'vue';
+import { useRouter } from 'vue-router'
 
-
+const router = useRouter()
 const props = defineProps({
     msg: {
         type: String,

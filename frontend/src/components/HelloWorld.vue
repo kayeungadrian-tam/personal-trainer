@@ -1,11 +1,32 @@
 <template>
+
+  <ConfirmDialog></ConfirmDialog>
   <div class="hello"
     style="color: white">
-    <h1>{{ haha }}</h1>
-    <h1>{{ counter }}</h1>
-    <h1>{{ stage }}</h1>
-    <h1>{{ distance }}</h1>
-    <h1>{{ delay }}</h1>
+
+    <!-- <h1>{{ distance }}</h1> -->
+    <!-- <h1>{{ delay }}</h1> -->
+    <div class="button-container">
+
+
+      <p-Button v-if="!start"
+        class="animate__animated
+      animate__flash 
+      
+      animate__infinite animate__slower
+
+      p-button-raised p-button-rounded
+      go-button
+      "
+        @click="startCamera">
+        GO</p-Button>
+      <div v-else>
+        <span class="exercise-count">{{ counter }}</span>
+      </div>
+    </div>
+
+
+
 
     <Knob v-model="delay"
       :min="0"
@@ -22,25 +43,26 @@
         width=640
         height=480></canvas>
     </div>
-    <p-Button @click="startCamera">Start</p-Button>
-    <p-Button @click="stopCamera">Stop</p-Button>
+
   </div>
   <div class='square-box'>
-    Box below
     <div class="landmark-grid-container">
     </div>
   </div>
 </template>
 
 <script lang="ts">
-// import ProgressBar from 'primevue/progressbar';
 import Knob from 'primevue/knob';
+import { useConfirm } from "primevue/useconfirm";
+import ConfirmDialog from 'primevue/confirmdialog';
 
 import { Camera } from '@mediapipe/camera_utils';
 import { Holistic, Results, POSE_CONNECTIONS, FACEMESH_TESSELATION, HAND_CONNECTIONS, NormalizedLandmark } from '@mediapipe/holistic';
 import { ref, defineEmits, onBeforeUnmount, onMounted, onUnmounted, defineComponent } from "vue";
 import type { InputImage } from "@mediapipe/holistic";
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
+
+import { useRouter } from 'vue-router';
 
 
 const UNSELECTED = "empty";
@@ -55,8 +77,10 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-
 const emit = defineEmits(['next', 'count'])
+
+const router = useRouter();
+const start = ref(false);
 
 const videoDivice = ref(localStorage.getItem('videoDivice') || '')
 const counter = ref(0);
@@ -114,6 +138,26 @@ holistic.setOptions({
 
 
 
+const confirm = useConfirm();
+
+const showConfirm = () => {
+
+  confirm.require({
+    message: 'Are you sure you want to proceed?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
+      //callback to execute when user confirms the action
+    },
+    reject: () => {
+      //callback to execute when user rejects the action
+    },
+    onHide: () => {
+      //callback to execute when dialog is hidden
+    }
+  });
+}
+
 const startCamera = () => {
   holistic.onResults(onResults)
 
@@ -128,6 +172,9 @@ const startCamera = () => {
     });
     camera.value.start();
   }
+  start.value = !start.value;
+
+
 }
 
 
@@ -261,28 +308,18 @@ onBeforeUnmount(() => {
 
 })
 
-// const devicesList = ref<string[]>([UNSELECTED]); // videoリスト
-// navigator.mediaDevices
-//   .getUserMedia({ audio: false, video: true })
-//   .then((stream) => {
-//     navigator.mediaDevices
-//       .enumerateDevices()
-//       .then((devices) => {
-//         devices.forEach((device) => {
-//           if (device.kind === "videoinput")
-//             devicesList.value.push(device.label);
-//         });
-//       })
-//       .catch((err) => {
-//         console.error(err);
-//       });
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@import 'animate.css';
+
+.outVideo {
+  /* visibility: hidden; */
+  /* opacity: 0.5; */
+  border-radius: 50px;
+  filter: brightness(50%)
+}
+
 h3 {
   margin: 40px 0 0;
 }
@@ -299,5 +336,34 @@ li {
 
 a {
   color: #42b983;
+}
+
+.exercise-count {
+  color: antiquewhite;
+  font-size: 5rem
+}
+
+.button-container {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.go-button {
+  font-size: 5rem;
+  --animate-duration: 2.5s;
+}
+
+.go-button:hover {
+  cursor: pointer;
+  /* --animate-duration: 0s; */
+
 }
 </style>

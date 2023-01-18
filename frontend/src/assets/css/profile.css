@@ -11,6 +11,8 @@
   padding: 0 50px;
 }
 
+
+
 .profile-inner {
   background-color: red;
   display: flex;
@@ -23,6 +25,15 @@
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 30px;
+}
+
+
+
+.profile-inner{
+  display: grid;
+  grid-auto-columns: 1fr 1fr 1fr 2fr; 
+  /* grid-template-columns: (10px, 10px); */
+  grid-template-columns: 50% 50%;
 }
 
 .profile-inner img {
@@ -45,4 +56,13 @@
 
 .profile-inner .tmp2 .p-progressbar-value {
   background-color: green;
+}
+
+.profile-inner .profile-badges{
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  gap: 20px
 }

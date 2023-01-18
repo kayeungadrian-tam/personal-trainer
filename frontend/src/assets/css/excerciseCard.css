@@ -3,6 +3,7 @@
 .excercise-card {
   /* background-color: red; */
   width: 300px;
+  cursor: pointer;
 }
 
 .excercise-card img {

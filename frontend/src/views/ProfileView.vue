@@ -19,10 +19,17 @@
                         {{ store.state.user?.displayName || 'empty' }}
                     </template>
                     <template #content>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
-                        repudiandae numquam deserunt
-                        quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse,
-                        cupiditate neque quas!
+                        <div>
+                            @member
+                            <div class="profile-badges">
+                                <BadgeView label="Yesterday"
+                                    :value=20 />
+                                <BadgeView label="Today"
+                                    :value=20 />
+
+                            </div>
+                        </div>
+
                     </template>
                     <template #footer>
                         <Button icon="pi pi-check"
@@ -121,6 +128,8 @@ import Chart from 'primevue/chart';
 
 import NavBar from "@/components/NavBar.vue";
 import ProgressCard from "@/components/ProgressCard.vue";
+import BadgeView from "@/components/BadgeView.vue";
+
 
 import { useFirestore, useDocument, useCollection } from 'vuefire'
 import {
@@ -137,6 +146,7 @@ import {
     getDocs,
     documentId
 } from 'firebase/firestore'
+import { string } from "@tensorflow/tfjs-core";
 
 
 
@@ -151,7 +161,7 @@ const u_progess = useCollection(collection(db, 'u_progess'))
 
 
 const basicData = ref();
-const pushUps = ref([] as any);
+const pushUps = ref([null]);
 
 onMounted(async () => {
     //   lastWeekLabels.value = await getLastWeeksDate();
@@ -172,6 +182,7 @@ const tmpData = ref();
 const toast = useToast();
 const toast_message = ref({});
 const emptyList = ref([{}]);
+
 
 
 const basicOptions = ref({
@@ -205,6 +216,9 @@ const basicOptions = ref({
 })
 
 
+const squats = ref({ count: [null], date: [""] });
+
+
 
 const getExcercises = async () => {
 
@@ -212,7 +226,6 @@ const getExcercises = async () => {
     const docRef = doc(db, "u_progess", store.state.user?.uid);
 
     const subcollection = await collection(
-        // query(_collection, where(documentId(), "==", "test"))
         docRef,
         "timeline"
     )
@@ -220,58 +233,45 @@ const getExcercises = async () => {
 
 
 
-    tmpData.value = useCollection(subcollection);
+    const __docs = await getDocs(subcollection);
+    var label = "";
 
-    tmpData.value.data.forEach(
-        (doc: any) => pushUps.value.push(doc.count)
-    )
+    __docs.forEach((doc) => {
+        if (doc.data().code == "e01") {
+            pushUps.value.push(doc.data().count)
+        } else if (doc.data().code == "e02") {
+            squats.value.count.push(doc.data().count)
+            const date = new Date(doc.data().timeCreated);
+            const t_label = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
 
-
-    basicData.value = ({
-        // labels: ['January', 'February', 'March'],
-        // labels: lastWeekLabels.value,
-
-        labels: Array.from(Array(pushUps.value.length).keys()),
-
-        datasets: [
-            {
-                label: 'My First dataset',
-                borderColor: '#42A5F5',
-                backgroundColor: '#42A5F515',
-                fill: true,
-                tension: .4,
-                data: pushUps.value
-            },
-            // {
-            //     label: 'My Second dataset',
-            //     fill: true,
-            //     borderColor: '#FFA726',
-            //     backgroundColor: 'rgba(255,167,38,0.2)',
-            //     tension: .4,
-            //     data: [28, 48, 40]
-            // }
-        ]
+            squats.value.date.push(t_label)
+        }
     })
 
 
-    // const ssss = collection(subcollection, "timeline");
-    // console.table(subcollection.data);
+    basicData.value = ({
+        labels: squats.value.date,
+        // labels: Array.from(Array(pushUps.value.length).keys()),
+        datasets: [
+            //     {
+            //         label: label,
+            //         borderColor: '#42A5F5',
+            //         backgroundColor: '#42A5F515',
+            //         fill: true,
+            //         tension: .4,
+            //         data: pushUps.value
+            //     },
+            {
+                label: 'Squats',
+                fill: true,
+                borderColor: '#FFA726',
+                backgroundColor: 'rgba(255,167,38,0.2)',
+                tension: .4,
+                data: squats.value.count
+            }
+        ]
+    })
 
-
-    // console.log(excerciseData.collection());
-    // excerciseData.docs.forEach(doc => {
-    // console.log(doc)
-    // });
-
-    // await getDocs(query(_collection, where(documentId(), "==", store.state.user?.uid))).then(snapshot => {
-    //     snapshot.forEach(doc => {
-    //         console.log(`${doc.id}: ${doc.data().uid}`);
-    //     })
-    // })
-    // const snapshot = await getDocs(query(_collection, where(documentId(), "==", store.state.user?.uid)));
-    // snapshot.forEach(doc => {
-    //     console.log(`${doc.id}: ${doc.data().uid}`);
-    // });
 
 }
 
@@ -324,9 +324,9 @@ const addFireStore = (input: string) => {
         setDoc(doc(db, `u_progess/${store.state.user?.uid}/timeline`, date.getTime().toString()), {
             timeCreated: date.getTime(),
             // displayName: store.state.user.displayName,
-            code: "e01",
-            title: "push_up",
-            count: 16,
+            code: "e02",
+            title: "squat",
+            count: 10,
         });
 
 
