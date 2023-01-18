@@ -10,7 +10,7 @@
 
     <!-- All EXs -->
     <div class="main">
-      {{ store.state }}
+
       <div class="excercise-board">
         <ExcerciseCard msg="Push Up"
           :progress=25 />
