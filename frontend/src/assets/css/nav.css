@@ -1,98 +1,47 @@
 @charset "utf-8";
 
-@media screen and (max-width: 1000px) {
-  .toggle-menu {
-    /* background-color: orange; */
-    position: fixed;
-    margin: 0;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  nav {
-    /* color: red; */
-    z-index: 10;
-    position: fixed;
-    margin: 0;
-    width: 200px;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    /* background-color: orange; */
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(7.5px);
-    -webkit-backdrop-filter: blur(7.5px);
-    /* border-radius: 10px; */
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    display: none;
-  }
-  .toggle-bar {
-    position: absolute;
-    cursor: pointer;
-    top: 10px;
-    left: 10px;
-    margin: 0px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .site-logo {
-    margin-bottom: 10px;
-  }
+.toggle-menu {
+  position: fixed;
+  margin: 0;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  z-index: 10;
 }
 
-@media screen and (min-width: 1000px) {
-  .site-title {
-    color: #5b7985;
-    font-size: 50px;
-    line-height: 25px;
-    font-family: "Caramel", cursive;
-    /* background-color: red; */
-  }
-
-  .toggle-menu {
-    /* background-color: orange; */
-    position: fixed;
-    margin: 0;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-    display: none;
-  }
-
-  nav {
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(7.5px);
-    -webkit-backdrop-filter: blur(7.5px);
-    /* border-radius: 10px; */
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 280px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-  }
-
-  .toggle-bar {
-    margin: 0px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+nav {
+  z-index: 10;
+  position: fixed;
+  margin: 0;
+  width: 200px;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(7.5px);
+  -webkit-backdrop-filter: blur(7.5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: none;
 }
+.toggle-bar {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  left: 10px;
+  margin: 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-logo {
+  margin-bottom: 10px;
+}
+/* } */
 
 nav .p-menu {
   /* margin: 0; */
@@ -126,20 +75,14 @@ nav .p-menu-list {
   left: 0;
 }
 
-nav .p-menuitem:hover {
-}
-
 nav .log-out-button {
   margin-right: 10px;
-  /* font-size: 2rem; */
-  /* color: chartreuse; */
 }
 
 .profile {
   cursor: pointer;
   margin-top: 55px;
   width: 180px;
-  /* height: 280px; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

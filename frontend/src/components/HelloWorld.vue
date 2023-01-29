@@ -3,7 +3,6 @@
   <ConfirmDialog></ConfirmDialog>
   <div class="hello"
     style="color: white">
-
     <!-- <h1>{{ distance }}</h1> -->
     <!-- <h1>{{ delay }}</h1> -->
     <div class="button-container">
@@ -93,6 +92,7 @@ const outVideo = ref<HTMLCanvasElement>()
 const camera = ref<Camera>()
 const ctx = ref()
 
+const MAX_HIEGHT = ref(480);
 
 const finaAngle = (p0: NormalizedLandmark, p1: NormalizedLandmark, p2: NormalizedLandmark) => {
   const a = Math.pow(p1.x - p0.x, 2) + Math.pow(p1.y - p0.y, 2);
@@ -117,7 +117,18 @@ const countPushUps = (angle: number) => {
 
 }
 
+const countSquats = (shoulderY: number) => {
+  if (shoulderY > 240) {
+    stage.value = "up"
+  } else if (shoulderY <= 400) {
+    if (stage.value === "up") {
+      stage.value = "down"
+      counter.value += 1
+      emit("count", counter.value)
+    }
+  }
 
+}
 
 
 
@@ -236,7 +247,8 @@ const detectHolistic = (results: Results) => {
     const tmp = finaAngle(p0, p1, p2);
     // console.log(tmp);
     angle.value = tmp;
-    countPushUps(tmp);
+    // countPushUps(tmp);
+    countSquats(haha.value * MAX_HIEGHT.value);
 
     drawConnectors(ctx.value, results.poseLandmarks, POSE_CONNECTIONS, {
     });

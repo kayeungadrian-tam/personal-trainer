@@ -21,24 +21,25 @@
 
 
       </div>
+
+      <!-- <div> -->
+
+      <!-- </div> -->
       <div class="mission-today">
 
-        <Carousel :value="cars"
+        <!-- <Carousel :value="testGifs"
           :numVisible="1"
           :numScroll="1">
           <template #header>
             <h2>Custom Header</h2>
           </template>
           <template #item="slotProps">
-            Content
-
-            {{ slotProps.data.name }}
-
+            <img :src=slotProps.data.gif>
           </template>
           <template #footer>
             <p>Custom Footer</p>
           </template>
-        </Carousel>
+        </Carousel> -->
 
       </div>
       <div class="week-chart-container">
@@ -51,15 +52,16 @@
         <!-- </div> -->
       </div>
 
-      <p-Button @click="test">sa</p-Button>
-      <TestFirebaseVue />
-      <DataTable :value="data.data"
-        responsiveLayout="scroll">
-        <Column v-for="col of columns"
-          :field="col.field"
-          :header="col.header"
-          :key="col.field"></Column>
-      </DataTable>
+
+      <div style="margin-top: 50px;">
+
+        <!-- <TestFirebaseVue /> -->
+        <h2>Leaderboard</h2>
+        <TableVue :data="data"
+          :columns="columns" />
+
+      </div>
+
     </div>
   </div>
 
@@ -78,10 +80,11 @@ import { onMounted } from 'vue';
 import { useStore } from 'vuex'
 
 
+import getLastWeeksDate from "@/composables/time_utils";
+
 import ExcerciseCard from '@/components/ExcerciseCard.vue'
 import NavBar from "@/components/NavBar.vue";
-
-import getLastWeeksDate from "@/composables/time_utils";
+import TableVue from '@/components/TableVue.vue';
 
 import Chart from 'primevue/chart';
 import Skeleton from 'primevue/skeleton';
@@ -90,6 +93,8 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';
 import Row from 'primevue/row'
+
+
 
 const lastWeekLabels = ref();
 const basicData = ref();
@@ -115,6 +120,14 @@ const data = ref({
     { "id": "1009", "code": "cm230f032", "name": "Gaming Set", "description": "Product Description", "image": "gaming-set.jpg", "price": 299, "category": "Electronics", "quantity": 63, "inventoryStatus": "INSTOCK", "rating": 3 }
   ]
 })
+
+const testGifs = ref([
+  { fileName: "legs-and-abs-work-out-fitness" },
+  { fileName: "../assets/excercise/legs-and-abs-work-out-fitness.gif" },
+  { fileName: "../assets/excercise/legs-and-abs-work-out-fitness.gif" },
+  { fileName: "../assets/excercise/legs-and-abs-work-out-fitness.gif" },
+  { fileName: "../assets/excercise/legs-and-abs-work-out-fitness.gif" },
+])
 
 const cars = ref([
   { name: "adrian" },

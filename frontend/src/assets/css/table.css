@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+
+.table .p-datatable-table {
+    background-color: black !important;;
+}
+
+.p-frozen-column .p-datatable-header {
+    color: antiquewhite;
+
+}
+
+.p-datatable .p-column-header-content{
+    color: antiquewhite;
+
+}
+
+.p-datatable .p-datatable-thead > tr > th{
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 1px 1px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(6.5px);
+    -webkit-backdrop-filter: blur(6.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.p-datatable .p-datatable-tbody > tr:nth-child(2n) > td {
+    background-color: darkgray;
+    border: 0px;
+    color: antiquewhite;
+
+}
+
+
+.p-datatable .p-datatable-tbody > tr:nth-child(2n+1) > td {
+    background-color: #101329a2;
+    border: 0px;
+    color: antiquewhite;
+
+
+}

@@ -1,11 +1,8 @@
 <template>
     <div>
-        <h1>Firebase Testing</h1>
+        <h1>Leaderboard</h1>
         <ul>
-            <li v-for="todo in todos"
-                :key="todo.id">
-                <span>{{ todo.id }}</span>
-            </li>
+
         </ul>
     </div>
 

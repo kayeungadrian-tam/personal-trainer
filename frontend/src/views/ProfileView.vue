@@ -19,56 +19,37 @@
                         {{ store.state.user?.displayName || 'empty' }}
                     </template>
                     <template #content>
-                        <div>
+                        <div class="user-rank">
                             @member
-                            <div class="profile-badges">
-                                <BadgeView label="Yesterday"
-                                    :value=20 />
-                                <BadgeView label="Today"
-                                    :value=20 />
-
-                            </div>
                         </div>
 
                     </template>
                     <template #footer>
-                        <Button icon="pi pi-check"
-                            label="Save" />
-                        <Button icon="pi pi-times"
-                            label="Cancel"
-                            class="p-button-secondary"
-                            style="margin-left: .5em" />
+                        <div class="profile-badges">
+                            <BadgeView label="Yesterday"
+                                :value=20 />
+                            <BadgeView label="Today"
+                                :value=20 />
+                        </div>
                     </template>
                 </Card>
             </div>
 
-            <div class="profile-progress">
-                <ProgressCard />
-            </div>
 
 
         </div>
-        <div>
-            <h1>Test Firebase</h1>
-            <h2> ID:
-                {{ store.state.user?.uid || "uu1234" }}
-            </h2>
-
+        <div class="week-chart-container">
+            <h2>My progress</h2>
             <Chart type="line"
                 style="height: 100%; width: 100%"
                 :data="basicData"
                 :options="basicOptions" />
-
-            <p-Button label="Get"
-                class="p-button-secondary"
-                style="margin-left:"
-                @click="getExcercises" />
-            <br>
-            <input type="text"
-                v-model="inputText" />
-            <p-Button label="Add"
-                @click="addFireStore"></p-Button>
         </div>
+
+        <input type="text"
+            v-model="inputText" />
+        <p-Button label="Add"
+            @click="addFireStore"></p-Button>
         <h3>
             <br>
             <div v-for="(value, index) in u_progess"
@@ -85,12 +66,10 @@
 
             <hr>
             <div>
-                {{ tmpData }}
 
 
 
             </div>
-            EOF
         </h3>
 
     </div>
@@ -168,7 +147,7 @@ onMounted(async () => {
     // lastWeekLabels.value = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 
-    // await getExcercises();
+    await getExcercises();
 
 })
 
@@ -229,13 +208,8 @@ const getExcercises = async () => {
         docRef,
         "timeline"
     )
-        ;
-
-
 
     const __docs = await getDocs(subcollection);
-    var label = "";
-
     __docs.forEach((doc) => {
         if (doc.data().code == "e01") {
             pushUps.value.push(doc.data().count)
@@ -250,7 +224,7 @@ const getExcercises = async () => {
 
 
     basicData.value = ({
-        labels: squats.value.date,
+        labels: squats.value.date.slice(-5),
         // labels: Array.from(Array(pushUps.value.length).keys()),
         datasets: [
             //     {
@@ -267,7 +241,7 @@ const getExcercises = async () => {
                 borderColor: '#FFA726',
                 backgroundColor: 'rgba(255,167,38,0.2)',
                 tension: .4,
-                data: squats.value.count
+                data: squats.value.count.slice(-5)
             }
         ]
     })

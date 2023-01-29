@@ -7,6 +7,8 @@
         <HelloWorld @count="chooseAnswer"
             @next="addFireStore" />
     </div>
+
+    <Toast />
 </template>
 
 <script setup lang="ts">
@@ -14,6 +16,9 @@
 
 import { ref } from "vue";
 import { useStore } from 'vuex'
+
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast";
 
 import Navbar from '@/components/NavBar.vue';
 import HelloWorld from '@/components/HelloWorld.vue';
@@ -35,10 +40,12 @@ import {
     documentId
 } from 'firebase/firestore'
 
-const cnt = ref(0);
 const store = useStore();
 const db = getFirestore();
+const toast = useToast();
 
+const cnt = ref(0);
+const toastMessage = ref({});
 
 const chooseAnswer = (count: number) => {
     console.log(count)
@@ -67,9 +74,14 @@ const addFireStore = () => {
         })
         cnt.value = 0
 
+        toastMessage.value = { severity: 'success', summary: 'Data added', detail: 'Data has been added successfully.', life: 3000 };
+
     } catch (error: any) {
+        toastMessage.value = { severity: 'error', summary: 'Info Message', detail: 'Message Content', life: 3000 };
+
         console.log(error)
     }
+    toast.add(toastMessage.value);
 }
 
 
