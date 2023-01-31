@@ -42,10 +42,16 @@
         </Carousel> -->
 
       </div>
+
+      <div>
+        <p-Button label="test"
+          @click="getPastWeekCount"></p-Button>
+      </div>
+
       <div class="week-chart-container">
         <h2>Performance</h2>
         <!-- <div class="week-chart"> -->
-        <Chart type="line"
+        <Chart type="bar"
           style="height: 100%;"
           :data="basicData"
           :options="basicOptions" />
@@ -94,7 +100,22 @@ import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';
 import Row from 'primevue/row'
 
+import {
+  getFirestore,
+  collection,
+  // getCollecionts,
+  doc,
+  addDoc,
+  deleteDoc,
+  setDoc,
+  getDoc,
+  query,
+  where,
+  getDocs,
+  documentId
+} from 'firebase/firestore'
 
+const db = getFirestore();
 
 const lastWeekLabels = ref();
 const basicData = ref();
@@ -137,30 +158,91 @@ const cars = ref([
   { name: "sam" }
 ])
 
+interface DataObject {
+  timestamp: number;
+  count: number;
+}
+
+interface DataObject2 {
+  monthDate: string;
+  count: number;
+}
+
+
+const getPastWeekCount = async () => {
+  const oneWeekAgo = new Date();
+  // oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+  const docRef = doc(db, "u_progess", store.state.user?.uid || "UN8KIvDJh7WCk8Z3XLF2W7cX8Tn1");
+  const subcollection = await collection(
+    docRef,
+    "timeline"
+  )
+
+  for (let i = 0; i < 7; i++) {
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 1);
+    console.log(i, oneWeekAgo.getDate());
+  }
+
+
+  const past_data: DataObject[] = [];
+
+  const __docs = await getDocs(subcollection);
+  __docs.forEach((doc) => {
+    past_data.push({ timestamp: parseInt(doc.id), count: doc.data().count });
+  })
+
+
+  const groupedData = past_data.reduce((grouped, data) => {
+    const date = new Date(data.timestamp);
+    const year = date.getDate();
+    const monthDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+
+    if (!grouped[monthDate]) {
+      grouped[monthDate] = [];
+    }
+
+    grouped[monthDate].push({ ...data });
+    return grouped;
+
+  }, {} as { [key: string]: DataObject[] })
+
+
+  const sums = Object.keys(groupedData).reduce((sums, monthDate) => {
+    sums[monthDate] = groupedData[monthDate].reduce((total, object) => total + object.count, 0);
+    return sums;
+  }, {} as any);
+
+  return sums;
+}
+
 onMounted(async () => {
   lastWeekLabels.value = await getLastWeeksDate();
-  // lastWeekLabels.value = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+  const tmp = await getPastWeekCount();
+
 
   basicData.value = ({
     // labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    labels: lastWeekLabels.value,
+    labels: Object.keys(tmp),
 
     datasets: [
+      // {
+      //   label: 'My First dataset',
+      //   borderColor: '#42A5F5',
+      //   backgroundColor: 'rgba(25, 150, 255, 0.5)',
+      //   fill: true,
+      //   tension: .4,
+      //   data: [65, 59, 80, 81, 56, 55, 40]
+      // },
       {
-        label: 'My First dataset',
-        borderColor: '#42A5F5',
-        backgroundColor: '#42A5F515',
-        fill: true,
-        tension: .4,
-        data: [65, 59, 80, 81, 56, 55, 40]
-      },
-      {
-        label: 'My Second dataset',
+        label: 'Squat',
         fill: true,
         borderColor: '#FFA726',
-        backgroundColor: 'rgba(255,167,38,0.2)',
+        backgroundColor: 'rgba(255,167,38,0.5)',
         tension: .4,
-        data: [28, 48, 40, 19, 86, 27, 90]
+        data: Object.values(tmp)
       }
     ]
   })
@@ -179,7 +261,7 @@ const basicOptions = ref({
   plugins: {
     legend: {
       labels: {
-        color: '#495057'
+        color: '#ebedef'
       }
     }
   },
@@ -358,6 +440,7 @@ const items = ref(
 
 import { defineComponent, ref } from 'vue';
 import TestFirebaseVue from '@/components/TestFirebase.vue';
+import { RgbColorManager } from 'tsparticles-engine';
 
 // import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 

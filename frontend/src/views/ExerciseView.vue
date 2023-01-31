@@ -7,7 +7,8 @@
         <HelloWorld @count="chooseAnswer"
             @next="addFireStore" />
     </div>
-
+    <p-Button label="Testing"
+        @click="getFireStore"></p-Button>
     <Toast />
 </template>
 
@@ -22,6 +23,8 @@ import { useToast } from "primevue/usetoast";
 
 import Navbar from '@/components/NavBar.vue';
 import HelloWorld from '@/components/HelloWorld.vue';
+
+import getLastWeeksDate from "@/composables/time_utils";
 
 
 import { useFirestore, useDocument, useCollection } from 'vuefire'
@@ -39,6 +42,7 @@ import {
     getDocs,
     documentId
 } from 'firebase/firestore'
+import { parseStringStyle } from "@vue/shared";
 
 const store = useStore();
 const db = getFirestore();
@@ -51,6 +55,52 @@ const chooseAnswer = (count: number) => {
     console.log(count)
     cnt.value += 1
 }
+
+
+const u_progess = useCollection(collection(db, 'u_progess'))
+
+
+const past_data = ref([{}]);
+
+const getFireStore = async () => {
+
+    console.log("getFirestore")
+    const weeks = getLastWeeksDate();
+
+    const docRef = doc(db, "u_progess", store.state.user?.uid);
+    const subcollection = await collection(
+        docRef,
+        "timeline"
+    )
+
+
+
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    console.log(oneWeekAgo.getTime())
+
+    const __docs = await getDocs(subcollection);
+    __docs.forEach((doc) => {
+
+        if (parseInt(doc.id) >= oneWeekAgo.getTime()) {
+            console.log(doc.data())
+        }
+        // past_data.value.push(tmp_data);
+        // const tmp_date = new Date(parseInt(doc.id));
+
+    })
+
+
+    console.log(typeof weeks.at(0))
+
+    // const past_stamp = past_data.value.filter(data => {
+    //     const date = new Date(data.id);
+    // })
+
+    // const tmp = new Date(1673531983650);
+    // console.log(tmp)
+
+};
 
 const addFireStore = () => {
     console.log("add fire store")
@@ -65,6 +115,8 @@ const addFireStore = () => {
                 store.state.user?.uid
             ,
         })
+
+        const timestamp = date.getTime().toString();
 
         setDoc(doc(db, `u_progess/${store.state.user?.uid}/timeline`, date.getTime().toString()), {
             timeCreated: date.getTime(),

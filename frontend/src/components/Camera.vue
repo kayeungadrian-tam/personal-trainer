@@ -134,7 +134,6 @@ const startCamera = async () => {
 
     const gotStream = (stream: MediaStream) => {
         captureStream.value = stream;
-        console.log("STREMAING");
     };
 
     navigator.mediaDevices
@@ -149,7 +148,6 @@ const startCamera = async () => {
 
             webVideo.value.width = 1280;
             webVideo.value.height = 720;
-            console.log("OSENMTO")
 
             // const pose = await net.estimateSinglePose(tmp, 0.2, false, 16);
             // await holistic.send({ image: webVideo.value as unknown as InputImage });
@@ -187,7 +185,6 @@ onMounted(async () => {
 })
 
 const testFrame = async () => {
-    console.log(webVideo.value)
     const pose = await net.value.estimateSinglePose(webVideo.value, 0.2, false, 16);
 }
 
@@ -199,7 +196,6 @@ watch(
     () => isOpen.value,
     () => {
         if (isOpen.value == true) {
-            console.log("Setting up camera");
             startCamera();
         }
         else {

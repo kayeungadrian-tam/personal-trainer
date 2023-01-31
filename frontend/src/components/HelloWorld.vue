@@ -175,7 +175,6 @@ const startCamera = () => {
   if (webVideo.value) {
     camera.value = new Camera(webVideo.value, {
       onFrame: async () => {
-        console.log("onFrame")
         await holistic.send({ image: webVideo.value as InputImage });
       },
       width: 640,
@@ -220,7 +219,6 @@ const detectHolistic = (results: Results) => {
     const right_shoulder = results.poseLandmarks[12];
 
     haha.value = (left_shoulder.y + right_shoulder.y) / 2;
-    console.log(haha.value * 480);
 
     const right_hand_points = [17, 19, 21];
 
@@ -275,7 +273,6 @@ const detectHolistic = (results: Results) => {
 function stopBothVideoAndAudio(stream: any) {
   stream.getTracks().forEach(function (track: any) {
     if (track.readyState == 'live') {
-      console.log("Running")
       track.stop();
     }
   });
@@ -285,9 +282,7 @@ function stopBothVideoAndAudio(stream: any) {
 const stopCamera = () => {
 
 
-  console.log(typeof webVideo.value)
-  console.log(typeof webVideo.value)
-  console.log(typeof ctx.value)
+
 
   if (!webVideo.value?.srcObject) {
     return
