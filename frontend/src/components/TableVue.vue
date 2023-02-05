@@ -7,7 +7,7 @@
             <Column field="name"
                 header="Name">
             </Column>
-            <Column field="quantity"
+            <Column field="count"
                 header="Count">
             </Column>
             <Column field="rating"

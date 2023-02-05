@@ -43,10 +43,6 @@
 
       </div>
 
-      <div>
-        <p-Button label="test"
-          @click="getPastWeekCount"></p-Button>
-      </div>
 
       <div class="week-chart-container">
         <h2>Performance</h2>
@@ -63,7 +59,7 @@
 
         <!-- <TestFirebaseVue /> -->
         <h2>Leaderboard</h2>
-        <TableVue :data="data"
+        <TableVue :data="data2"
           :columns="columns" />
 
       </div>
@@ -100,6 +96,7 @@ import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';
 import Row from 'primevue/row'
 
+import { useCollection, useDocument } from 'vuefire'
 import {
   getFirestore,
   collection,
@@ -123,66 +120,98 @@ const basicData = ref();
 const columns = ref([
   { field: 'id', header: 'Code' },
   { field: 'name', header: 'Name' },
-  { field: 'category', header: 'Category' },
-  { field: 'quantity', header: 'Quantity' }
+  { field: 'coumt', header: 'Category' },
 ]);
 
-const data = ref({
-  "data": [
-    { "id": "1000", "code": "f230fh0g3", "name": "Bamboo Watch", "description": "Product Description", "image": "bamboo-watch.jpg", "price": 65, "category": "Accessories", "quantity": 24, "inventoryStatus": "INSTOCK", "rating": 5 },
-    { "id": "1001", "code": "nvklal433", "name": "Black Watch", "description": "Product Description", "image": "black-watch.jpg", "price": 72, "category": "Accessories", "quantity": 61, "inventoryStatus": "INSTOCK", "rating": 4 },
-    { "id": "1002", "code": "zz21cz3c1", "name": "Blue Band", "description": "Product Description", "image": "blue-band.jpg", "price": 79, "category": "Fitness", "quantity": 2, "inventoryStatus": "LOWSTOCK", "rating": 3 },
-    { "id": "1003", "code": "244wgerg2", "name": "Blue T-Shirt", "description": "Product Description", "image": "blue-t-shirt.jpg", "price": 29, "category": "Clothing", "quantity": 25, "inventoryStatus": "INSTOCK", "rating": 5 },
-    { "id": "1004", "code": "h456wer53", "name": "Bracelet", "description": "Product Description", "image": "bracelet.jpg", "price": 15, "category": "Accessories", "quantity": 73, "inventoryStatus": "INSTOCK", "rating": 4 },
-    { "id": "1005", "code": "av2231fwg", "name": "Brown Purse", "description": "Product Description", "image": "brown-purse.jpg", "price": 120, "category": "Accessories", "quantity": 0, "inventoryStatus": "OUTOFSTOCK", "rating": 4 },
-    { "id": "1006", "code": "bib36pfvm", "name": "Chakra Bracelet", "description": "Product Description", "image": "chakra-bracelet.jpg", "price": 32, "category": "Accessories", "quantity": 5, "inventoryStatus": "LOWSTOCK", "rating": 3 },
-    { "id": "1007", "code": "mbvjkgip5", "name": "Galaxy Earrings", "description": "Product Description", "image": "galaxy-earrings.jpg", "price": 34, "category": "Accessories", "quantity": 23, "inventoryStatus": "INSTOCK", "rating": 5 },
-    { "id": "1008", "code": "vbb124btr", "name": "Game Controller", "description": "Product Description", "image": "game-controller.jpg", "price": 99, "category": "Electronics", "quantity": 2, "inventoryStatus": "LOWSTOCK", "rating": 4 },
-    { "id": "1009", "code": "cm230f032", "name": "Gaming Set", "description": "Product Description", "image": "gaming-set.jpg", "price": 299, "category": "Electronics", "quantity": 63, "inventoryStatus": "INSTOCK", "rating": 3 }
-  ]
-})
 
-const testGifs = ref([
-  { fileName: "legs-and-abs-work-out-fitness" },
-  { fileName: "../assets/excercise/legs-and-abs-work-out-fitness.gif" },
-  { fileName: "../assets/excercise/legs-and-abs-work-out-fitness.gif" },
-  { fileName: "../assets/excercise/legs-and-abs-work-out-fitness.gif" },
-  { fileName: "../assets/excercise/legs-and-abs-work-out-fitness.gif" },
-])
-
-const cars = ref([
-  { name: "adrian" },
-  { name: "peter" },
-  { name: "mark" },
-  { name: "john" },
-  { name: "sam" }
-])
+const data2 = ref({ "data": [{}] })
 
 interface DataObject {
   timestamp: number;
   count: number;
 }
 
-interface DataObject2 {
-  monthDate: string;
-  count: number;
+
+const today = new Date();
+
+function counterSum(ary: number[]) {
+  // acc: number
+  return ary.reduce((acc, val) => {
+    return acc + val;
+  }, 0);
 }
 
 
-const getPastWeekCount = async () => {
+const getRecord = async () => {
+
+  const subcollection = await collection(
+    db,
+    "u_record"
+  )
+
+  // const snapshot = await getDocs(query(subcollection, where("uid", "==", "UN8KIvDJh7WCk8Z3XLF2W7cX8Tn1")));
+
+  // snapshot.forEach((doc) => {
+  //   console.log("", doc.data())
+  // })
+
+  const __docs = await getDocs(subcollection);
+
+  console.log(__docs);
+  __docs.forEach((doc) => {
+
+    data2.value.data.push({ id: doc.id, name: doc.data().displayName, count: doc.data().total, rating: doc.data().total / 10 })
+
+
+    console.log(doc.id)
+    if (doc.id == store.state.user?.uid) {
+      console.log(doc.data())
+    }
+
+  })
+  data2.value.data = data2.value.data.splice(1);
+  console.log(data2.value.data)
+}
+
+const updateRecord = async () => {
+  console.log(today.getDay());
+
+
+
+  // if (today.getDay() !== 1) { return }
+
   const oneWeekAgo = new Date();
-  // oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+  for (let i = 0; i < 7; i++) {
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 1);
+  }
+
+  const tmp = await getCountByDate();
+  const _values = Object.values(tmp)
+
+
+  const sum = counterSum(_values as number[]);
+
+
+  setDoc(doc(db, "u_record", store.state.user?.uid), {
+    lastUpdated: today.getTime(),
+    displayName: store.state.user.displayName,
+    total: sum,
+    uid:
+      store.state.user?.uid
+    ,
+  })
+
+}
+
+
+const getCountByDate = async () => {
 
   const docRef = doc(db, "u_progess", store.state.user?.uid || "UN8KIvDJh7WCk8Z3XLF2W7cX8Tn1");
   const subcollection = await collection(
     docRef,
     "timeline"
   )
-
-  for (let i = 0; i < 7; i++) {
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 1);
-    console.log(i, oneWeekAgo.getDate());
-  }
 
 
   const past_data: DataObject[] = [];
@@ -195,7 +224,6 @@ const getPastWeekCount = async () => {
 
   const groupedData = past_data.reduce((grouped, data) => {
     const date = new Date(data.timestamp);
-    const year = date.getDate();
     const monthDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
 
@@ -218,24 +246,17 @@ const getPastWeekCount = async () => {
 }
 
 onMounted(async () => {
+  updateRecord();
   lastWeekLabels.value = await getLastWeeksDate();
 
-  const tmp = await getPastWeekCount();
+  const tmp = await getCountByDate();
 
 
   basicData.value = ({
-    // labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     labels: Object.keys(tmp),
 
     datasets: [
-      // {
-      //   label: 'My First dataset',
-      //   borderColor: '#42A5F5',
-      //   backgroundColor: 'rgba(25, 150, 255, 0.5)',
-      //   fill: true,
-      //   tension: .4,
-      //   data: [65, 59, 80, 81, 56, 55, 40]
-      // },
+
       {
         label: 'Squat',
         fill: true,
@@ -247,6 +268,7 @@ onMounted(async () => {
     ]
   })
 
+  getRecord();
 
 })
 
