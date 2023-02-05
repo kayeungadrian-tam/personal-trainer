@@ -1,14 +1,16 @@
 <template>
     <div class="table">
         <DataTable :value="data.data"
-            responsiveLayout="scroll">
+            responsiveLayout="scroll"
+            :sortOrder="-1">
             <Column field="id"
                 header="Ranking"></Column>
             <Column field="name"
                 header="Name">
             </Column>
             <Column field="count"
-                header="Count">
+                header="Count"
+                :sortable="true">
             </Column>
             <Column field="rating"
                 header="Reviews">
