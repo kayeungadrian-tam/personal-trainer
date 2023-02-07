@@ -149,11 +149,6 @@ const getRecord = async () => {
     "u_record"
   )
 
-  // const snapshot = await getDocs(query(subcollection, where("uid", "==", "UN8KIvDJh7WCk8Z3XLF2W7cX8Tn1")));
-
-  // snapshot.forEach((doc) => {
-  //   console.log("", doc.data())
-  // })
 
   const __docs = await getDocs(subcollection);
 
@@ -175,11 +170,6 @@ const getRecord = async () => {
 
 const updateRecord = async () => {
   console.log(today.getDay());
-
-
-
-  // if (today.getDay() !== 1) { return }
-
   const oneWeekAgo = new Date();
 
   for (let i = 0; i < 7; i++) {
@@ -207,7 +197,7 @@ const updateRecord = async () => {
 
 const getCountByDate = async () => {
 
-  const docRef = doc(db, "u_progess", store.state.user?.uid || "UN8KIvDJh7WCk8Z3XLF2W7cX8Tn1");
+  const docRef = doc(db, "u_progess", store.state.user?.uid);
   const subcollection = await collection(
     docRef,
     "timeline"
