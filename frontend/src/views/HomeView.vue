@@ -14,17 +14,10 @@
       <div class="excercise-board">
         <ExcerciseCard msg="Push Up"
           :progress=25 />
-
         <ExcerciseCard msg="Jump Squat"
           :progress=25 />
-
-
-
       </div>
 
-      <!-- <div> -->
-
-      <!-- </div> -->
       <div class="mission-today">
 
         <!-- <Carousel :value="testGifs"
@@ -43,31 +36,27 @@
 
       </div>
 
-
-      <div class="week-chart-container">
+      <div style="margin-top: 50px;">
         <h2>Performance</h2>
-        <!-- <div class="week-chart"> -->
-        <Chart type="bar"
-          style="height: 100%;"
-          :data="basicData"
-          :options="basicOptions" />
-        <!-- </div> -->
+        <div class="week-chart-container">
+          <!-- <div class="week-chart"> -->
+          <Chart type="bar"
+            style="height: 100%;"
+            :data="basicData"
+            :options="basicOptions" />
+          <!-- </div> -->
+        </div>
       </div>
 
 
       <div style="margin-top: 50px;">
-
-        <!-- <TestFirebaseVue /> -->
         <h2>Leaderboard</h2>
         <TableVue :data="data2"
           :columns="columns" />
-
       </div>
 
     </div>
   </div>
-
-
 </template>
 
 
@@ -112,6 +101,15 @@ import {
   documentId
 } from 'firebase/firestore'
 
+
+interface MyData {
+  id: string;
+  name: string;
+  count: number;
+  rating: number;
+  imgUrl?: string;
+}
+
 const db = getFirestore();
 
 const lastWeekLabels = ref();
@@ -124,7 +122,9 @@ const columns = ref([
 ]);
 
 
-const data2 = ref({ "data": [{}] })
+const data2 = ref({ "data": [{} as MyData] })
+
+
 
 interface DataObject {
   timestamp: number;
@@ -152,20 +152,26 @@ const getRecord = async () => {
 
   const __docs = await getDocs(subcollection);
 
-  console.log(__docs);
   __docs.forEach((doc) => {
-
-    data2.value.data.push({ id: doc.id, name: doc.data().displayName, count: doc.data().total, rating: doc.data().total / 10 })
-
-
-    console.log(doc.id)
-    if (doc.id == store.state.user?.uid) {
-      console.log(doc.data())
-    }
-
+    data2.value.data.push({
+      id: doc.id,
+      name: doc.data().displayName,
+      count: doc.data().total,
+      rating: doc.data().total / 10
+      // imgUrl: doc.data().
+    })
   })
   data2.value.data = data2.value.data.splice(1);
-  console.log(data2.value.data)
+  data2.value.data.sort((a, b) => b.count - a.count);
+
+  data2.value.data = data2.value.data.map((item, index) => {
+    return {
+      ...item,
+      rank: index + 1,
+    };
+  });
+  console.log(data2.value.data);
+
 }
 
 const updateRecord = async () => {

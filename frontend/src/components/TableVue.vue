@@ -3,7 +3,7 @@
         <DataTable :value="data.data"
             responsiveLayout="scroll"
             :sortOrder="-1">
-            <Column field="id"
+            <Column field="rank"
                 header="Ranking"></Column>
             <Column field="name"
                 header="Name">
@@ -34,8 +34,6 @@
 
         </DataTable>
     </div>
-
-
 </template>
 
 
