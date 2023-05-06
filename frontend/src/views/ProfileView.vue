@@ -5,73 +5,73 @@
         <div class="title">
             <h1>Profile</h1>
         </div>
+        <div class="main">
 
+            <div class="profile-inner">
+                <div class="profile-card">
 
-        <div class="profile-inner">
-            <div class="profile-card">
+                    <Card>
+                        <template #header>
+                            <img alt="user header"
+                                :src="store.state.user?.photoURL || ''">
+                        </template>
+                        <template #title>
+                            {{ store.state.user?.displayName || 'empty' }}
+                        </template>
+                        <template #content>
+                            <div class="user-rank">
+                                @member
+                            </div>
 
-                <Card>
-                    <template #header>
-                        <img alt="user header"
-                            :src="store.state.user?.photoURL || ''">
-                    </template>
-                    <template #title>
-                        {{ store.state.user?.displayName || 'empty' }}
-                    </template>
-                    <template #content>
-                        <div class="user-rank">
-                            @member
-                        </div>
-
-                    </template>
-                    <template #footer>
-                        <div class="profile-badges">
-                            <BadgeView label="Yesterday"
-                                :value=20 />
-                            <BadgeView label="Today"
-                                :value=20 />
-                        </div>
-                    </template>
-                </Card>
+                        </template>
+                        <template #footer>
+                            <div class="profile-badges">
+                                <BadgeView label="Last Month"
+                                    :value=lastMonthCount />
+                                <BadgeView label="Past 7 Days"
+                                    :value=countSum />
+                            </div>
+                        </template>
+                    </Card>
+                </div>
             </div>
 
-
-
-        </div>
-        <div class="week-chart-container">
-            <h2>My progress</h2>
-            <Chart type="line"
-                style="height: 100%; width: 100%"
-                :data="basicData"
-                :options="basicOptions" />
-        </div>
-
-        <input type="text"
-            v-model="inputText" />
-        <p-Button label="Add"
-            @click="addFireStore"></p-Button>
-        <h3>
-            <br>
-            <div v-for="(value, index) in u_progess"
-                :key="index">
-                {{ value }}
-                <p-Button class="p-button-danger"
-                    @click="deleteDocument(value.id)">Del</p-Button>
-
-                <p-Button class="p-button-success"
-                    @click="deleteDocument(value.id)">TMP</p-Button>
-
-            </div>
-
-
-            <hr>
             <div>
-
-
-
+                <h2>My progress</h2>
             </div>
-        </h3>
+            <div class="week-chart-container">
+                <Chart type="line"
+                    style="height: 100%; width: 100%"
+                    :data="basicData"
+                    :options="basicOptions" />
+            </div>
 
+            <input type="text"
+                v-model="inputText" />
+            <p-Button label="Add"
+                @click="addFireStore"></p-Button>
+            <h3>
+                <br>
+                <div v-for="(value, index) in u_progess"
+                    :key="index">
+                    {{ value }}
+                    <p-Button class="p-button-danger"
+                        @click="deleteDocument(value.id)">Del</p-Button>
+
+                    <p-Button class="p-button-success"
+                        @click="deleteDocument(value.id)">TMP</p-Button>
+
+                </div>
+
+
+                <hr>
+                <div>
+
+
+
+                </div>
+            </h3>
+        </div>
     </div>
     <p-Button label="Toast"
         @click="showToast"></p-Button>
@@ -94,7 +94,7 @@ h3 {
 
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeMount } from "vue";
 
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
@@ -125,12 +125,12 @@ import {
     getDocs,
     documentId
 } from 'firebase/firestore'
-import { string } from "@tensorflow/tfjs-core";
 
 
 
-const router = useRouter()
 const store = useStore();
+
+const testInt = ref(230);
 
 
 const db = getFirestore();
@@ -138,26 +138,20 @@ const _collection = collection(db, "u_progess");
 const u_progess = useCollection(collection(db, 'u_progess'))
 // const time_line = useCollection(collection(db, `u_progess/${store.state.user?.uid || ""}`))
 
-
+const countSum = ref(0);
+const lastMonthCount = ref(0);
 const basicData = ref();
 const pushUps = ref([null]);
 
-onMounted(async () => {
-    //   lastWeekLabels.value = await getLastWeeksDate();
-    // lastWeekLabels.value = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-
+onBeforeMount(async () => {
     await getExcercises();
-
 })
 
 
-const result = ref();
 
 
 const inputText = ref("");
 
-const tmpData = ref();
 const toast = useToast();
 const toast_message = ref({});
 const emptyList = ref([{}]);
@@ -197,9 +191,24 @@ const basicOptions = ref({
 
 const squats = ref({ count: [null], date: [""] });
 
+const getTimeRanges = (weekOffset: number, monthOffset: number) => {
+    const pastWeek = new Date();
+    pastWeek.setDate(pastWeek.getDate() - weekOffset);
 
+    const startOfMonth = new Date();
+    startOfMonth.setMonth(startOfMonth.getMonth() - monthOffset);
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    const endOfMonth = new Date();
+    endOfMonth.setDate(0);
+    endOfMonth.setHours(23, 59, 59, 999);
+    return { pastWeek, startOfMonth, endOfMonth };
+}
 
 const getExcercises = async () => {
+    const { pastWeek, startOfMonth, endOfMonth } = getTimeRanges(7, 1);
+
 
 
     const docRef = doc(db, "u_progess", store.state.user?.uid);
@@ -210,6 +219,8 @@ const getExcercises = async () => {
     )
 
     const __docs = await getDocs(subcollection);
+
+
     __docs.forEach((doc) => {
         if (doc.data().code == "e01") {
             pushUps.value.push(doc.data().count)
@@ -217,10 +228,18 @@ const getExcercises = async () => {
             squats.value.count.push(doc.data().count)
             const date = new Date(doc.data().timeCreated);
             const t_label = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
-
             squats.value.date.push(t_label)
+
+
+            if (date >= pastWeek && date <= new Date()) {
+                countSum.value += doc.data().count;
+            } else if (date >= startOfMonth && date <= endOfMonth) {
+                lastMonthCount.value += doc.data().count;
+            }
+
         }
     })
+
 
 
     basicData.value = ({
@@ -245,7 +264,6 @@ const getExcercises = async () => {
             }
         ]
     })
-
 
 }
 

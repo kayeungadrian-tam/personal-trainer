@@ -16,17 +16,20 @@
 
 <script setup lang="ts">
 import Badge from 'primevue/badge';
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, onMounted } from 'vue';
 
 
 const props = defineProps({
     label: { type: String, required: true },
-    value: { type: Number, reuqired: true }
+    value: { type: Number, required: true }
+})
+
+onMounted(async () => {
+    const label = ref(props.label)
+    const value = ref(props.value)
 })
 
 
-const label = ref(props.label)
-const value = ref(props.value)
 
 
 </script>
